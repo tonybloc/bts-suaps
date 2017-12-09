@@ -12,7 +12,7 @@
   width: 100%;
 }
 .header_brand{
-  background-color: #0091B3;
+  background-color: #5bc0de;
 }
 .header_img{
   height: 100%;
@@ -37,5 +37,8 @@
 }
 
 .header_nav{
-  background-color: #00596E;
+  background-color: #428bca;
+}
+.nav-link{
+  color:white;
 }
