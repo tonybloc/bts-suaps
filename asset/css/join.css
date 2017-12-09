@@ -1,0 +1,21 @@
+/*
+@version 1.0
+@author Anthony Mochel
+@updated by Anthony Mochel, ...
+@date 08/12/2017
+@Title : Join style
+*/
+.setup-wrapper{
+  width: 700px;
+  margin: 0 auto;
+}
+
+.account_header > h2{
+  text-align: center;
+  color:#00596E;
+  margin: 30px 0px;
+}
+.form-group label{
+  font-weight: bolder;
+}
+.form-group input{}

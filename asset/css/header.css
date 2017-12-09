@@ -1,0 +1,44 @@
+
+/*
+@version 1.0
+@author Anthony Mochel
+@updated by Anthony Mochel, ...
+@date 08/12/2017
+@Title : Header style
+*/
+
+.header_content{
+  height: 100%;
+  width: 100%;
+}
+.header_brand{
+  background-color: #5bc0de;
+}
+.header_img{
+  height: 100%;
+  width: 100%;
+
+  /* Alignement verticle de l'image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header_title{
+  height: 100%;
+  width: 100%;
+
+}
+.header_title > h1{
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+.header_title > p{
+  color:orange;
+}
+
+.header_nav{
+  background-color: #428bca;
+}
+.nav-link{
+  color:white;
+}
