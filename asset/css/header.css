@@ -33,12 +33,13 @@
   text-transform: uppercase;
 }
 .header_title > p{
-  color:orange;
+
 }
 
 .header_nav{
   background-color: #428bca;
 }
+.header_nav > 
 .nav-link{
   color:white;
 }

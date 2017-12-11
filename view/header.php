@@ -18,7 +18,7 @@
     </div>
     <div class="header_nav">
       <nav class="nav">
-        <a class="nav-link active" href="#">Connexion</a>
+        <a class="nav-link" href="#">Connexion</a>
         <a class="nav-link" href="#">Association AGJSEP</a>
         <a class="nav-link" href="#">Inscription</a>
       </nav>
