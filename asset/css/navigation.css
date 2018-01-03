@@ -1,0 +1,9 @@
+.navigation{
+  background-color: #EFEFEF;
+}
+.navigation >.nav-pills > li > a{
+	border-radius:0px;
+}
+.navigation >.nav-pills > li > a:hover{
+	background-color:#62AC5B;
+}
