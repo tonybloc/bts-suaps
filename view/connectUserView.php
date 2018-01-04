@@ -1,6 +1,6 @@
 <?php $title = "Golf Suaps";?>
 
-<?php require('../model/formulaire.php');?>
+<?php require_once('../model/form.class.php');?>
 
 <?php 
     // Création du formulaire

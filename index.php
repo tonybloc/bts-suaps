@@ -1,7 +1,13 @@
 
-<?php 
-// Ce fichier joue le rôle de Routeur entre les différents contrôleurs
-require('controler/controler.php');
+<?php
+
+##### FICHIER DE ROUTE #####
+/*
+ * Role du fichier : 
+ *  Charge le bon controleur
+ *  
+ */
+require_once('controler/controler.php');
 
 if(isset($_GET['mode']))
 {
@@ -11,12 +17,12 @@ if(isset($_GET['mode']))
         
     }else 
     {
-        // controleur par défaut
+        // controleur par dÃ©faut
         test();
     }
 }
 else
 {
-    // controleur par défaut
-    test();
+    // controleur par dï¿½faut
+    defaultMethode();
 }
