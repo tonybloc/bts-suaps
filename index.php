@@ -5,7 +5,7 @@
 /*
  * Role du fichier : 
  *  Charge le bon controleur
- *  
+ *  ceci est un commentaire de test rémy
  */
 require_once('controler/controler.php');
 
