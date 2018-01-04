@@ -10,7 +10,7 @@ class Form
      */
     private $data = array();
     /**
-     * @var string : Tag utilis� pour entourer les champs
+     * @var string : Tag utilisé pour entourer les champs
      */
     private $tag = 'p';
     

@@ -20,6 +20,8 @@ function defaultMethode()
 {
     
     require('view/indexView.php');
+    var_dump(userExist("urantmarc@gmail.com"));
+    
 }
 
 /**

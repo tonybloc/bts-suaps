@@ -6,7 +6,10 @@
  *  Cherche/Modifie/Insert des données dans la bdd
  *  ...
  */
+
 require_once('config.php');
+
+
 
 /**
  * Connexion à une base de donnée
@@ -16,7 +19,7 @@ function dbConnect()
 {
     try{
         $bdd = new PDO(
-            BD_MOTEUR.':host='.DB_HOST_NAME.';dbname='.DB_DATABASE_NAME.';charset=utf8', DB_USER_NAME, DB_PASSWORD);
+            DB_MOTEUR.':host='.DB_HOST_NAME.';dbname='.DB_DATABASE_NAME.';charset=utf8', DB_USER_NAME, DB_PASSWORD);
     }
     catch(Exception $e){
         die("Erreur : " . $e->getMessage());
@@ -24,14 +27,19 @@ function dbConnect()
     return $bdd;
 }
 
-function verifUserConnection($email)
+/**
+ * Vérifie si un utilisateur existe dans la base de donnée
+ * @param string : $email, email de l'utilisateur
+ */
+function userExist($email)
 {
     $bdd = dbConnect();
     
-    $user = $bdd->prepare("SELECT email, passsword_util FROM utilisateur WHERE email=:email");
-    $user->execute(array(':email'=> $email));
-    var_dump($user);
+    $user = $bdd->prepare("SELECT * FROM utilisateur WHERE email = ?");
+    $user->execute(array($email));
     $data = $user->fetch();
-    var_dump($data);
     
+    return (!empty($data)) ? true : false;
 }
+
+
