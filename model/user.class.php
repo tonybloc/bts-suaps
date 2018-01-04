@@ -66,7 +66,7 @@ class User
     {
         $lastName = "malanie";
         $firstName = "Jean";
-        
+        $test="marc";
     }
     public function getfirstName()
     {
