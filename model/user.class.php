@@ -1,4 +1,5 @@
 <?php 
+require('connect.class.php');
 /**
  * Class User
  */
@@ -33,6 +34,7 @@ class User
      */
     private $_data;
     
+    private $db_connect;
     
     
     public function __construct($data = array())
@@ -51,10 +53,12 @@ class User
     {
         return isset($this->data[$index]) ? $this->data[$index] : null;
     }
+    
     /**
-     * Methode permettant 
+     * Mes à jour les informations de l'utilisatateur dans la bdd
      */
-    public function updateUser(){
+    public function updateUser()
+    {
         
     }
     
@@ -62,11 +66,11 @@ class User
     
     ##### ACCESSEURS #####
     
-    public  function getUser()
+    public static function getUser($email)
     {
         $lastName = "malanie";
         $firstName = "Jean";
-        $test="marc";
+        
     }
     public function getfirstName()
     {
@@ -100,7 +104,7 @@ class User
         }
         else
         {
-            // Exception
+            return null;
         }
     }
     public function setFirstName($firstName)
@@ -111,7 +115,7 @@ class User
         }
         else
         {
-            // Exception
+            return null;
         }
     }
     public function setEmail($email)
@@ -122,7 +126,7 @@ class User
         }
         else
         {
-            // Exception
+            return null;
         }
     }
     public function setPassword($password)
@@ -133,7 +137,7 @@ class User
         }
         else
         {
-            // Exception
+            return null;
         }
     }
     public function addTicketWeek($nbTicket)
@@ -144,7 +148,7 @@ class User
         }
         else
         {
-            // Exception
+            return null;
         }
     }
     public function addTicketSemaine($nbTicket)
@@ -155,7 +159,29 @@ class User
         }
         else
         {
-            // Exception
+            return null;
+        }
+    }
+    public function delTicketWeek($nbTicket)
+    {
+        if(is_int($nbTicket))
+        {
+            $this->_nbTicketWeek -= $nbTicket;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public function delTicketSemain($nbTicket)
+    {
+        if(is_int($nbTicket))
+        {
+            $this->_nbTicketWeek -= $nbTicket;
+        }
+        else
+        {
+            return null;
         }
     }
     

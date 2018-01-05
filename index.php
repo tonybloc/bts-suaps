@@ -9,20 +9,29 @@
  */
 require_once('controler/controler.php');
 
-if(isset($_GET['mode']))
+
+try
 {
-    // controler admin
-    if($_GET['mode'] == 'admin')
+    if(isset($_GET['mode']))
     {
-        
-    }else 
+        // controler admin
+        if($_GET['mode'] == 'admin')
+        {
+            
+        }else
+        {
+            // controleur par défaut
+            test();
+        }
+    }
+    else
     {
         // controleur par défaut
-        test();
+        defaultMethode();
     }
 }
-else
+catch(Exception $e)
 {
-    // controleur par d�faut
-    defaultMethode();
+    echo "Erreur : " . $e->getMessage();
 }
+
