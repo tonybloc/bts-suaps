@@ -9,8 +9,8 @@
 
 
 require_once('model/model.php');
-require_once('model/user.class.php');
-require_once('model/form.class.php');
+//require_once('model/user.class.php');
+//require_once('model/form.class.php');
 
 
 /**
@@ -20,7 +20,7 @@ function defaultMethode()
 {
     
     require('view/indexView.php');
-    var_dump(userExist("urantmarc@gmail.com"));
+    var_dump(userExist("durantmarc@gmail.com"));
     
 }
 

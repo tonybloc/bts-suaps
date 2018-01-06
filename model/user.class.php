@@ -1,5 +1,5 @@
 <?php 
-require('connect.class.php');
+include_once('connect.class.php');
 /**
  * Class User
  */
@@ -33,8 +33,11 @@ class User
      * @var array : Donnée utilisée lors de l'inscription d'un utilisateur
      */
     private $_data;
-    
-    private $db_connect;
+    /**
+     * Crée une connexion avec la bdd
+     * @var unknown
+     */
+    //private $_myConnection = new Connection();
     
     
     public function __construct($data = array())

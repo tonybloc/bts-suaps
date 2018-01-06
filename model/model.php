@@ -8,8 +8,8 @@
  */
 
 require_once('config.php');
-require_once ('connect.class.php');
-require_once ('user.class.php');
+require_once('connect.class.php');
+require_once('user.class.php');
 
 
 // Variables de connexion commune à toute les méthodes
@@ -21,6 +21,8 @@ $myConnection = new Connection();
  */
 function userExist($email)
 { 
+    global $myConnection;
+    
     $myConnection->query("SELECT * FROM utilisateur WHERE email = :email");
     $myConnection->bind(':email', $email, PDO::PARAM_STR);
     $user = $myConnection->single();
