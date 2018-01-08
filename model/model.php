@@ -25,6 +25,7 @@ function userExist($email)
     global $myConnection;
     
     $myConnection->query("SELECT * FROM utilisateur WHERE email = :email");
+    
     $myConnection->bind(':email', $email, PDO::PARAM_STR);
     $user = $myConnection->single();
     
