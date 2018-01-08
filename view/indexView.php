@@ -1,7 +1,12 @@
 <?php 
-$title = "Golf Suaps"; 
-?>
 
+session_start();
+
+require_once(__DIR__ .'/../config.php');
+$title = "Golf Suaps"; 
+
+
+?>
 
 <?php ob_start(); ?>
 

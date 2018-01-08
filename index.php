@@ -7,9 +7,10 @@
  *  Charge le bon controleur
  *  ceci est un commentaire de test rémy
  */
-require_once('./config.php');
-require_once(ROOT_FOLDER . DS. 'controler/controler.php');
 
+require(__DIR__ . '/config.php');
+require(ROOT_FOLDER.DS.'controler'.DS.'controler.php');
+ 
 
 try
 {

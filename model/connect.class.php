@@ -1,5 +1,4 @@
 <?php
-// help : http://culttt.com/2012/10/01/roll-your-own-pdo-php-class/ 
 /**
  * Class de connection à une base de donée
  *

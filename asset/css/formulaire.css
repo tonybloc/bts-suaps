@@ -1,7 +1,13 @@
 .test{
 	padding : 30px;
-	background-color: #FF0000;
+	background-color: #EFEFEF;
+	border-radius: 5px;
 }
 .test > h1{
 	text-align: center;
+	padding:10px;
+}
+
+#message_connect_error{
+	color : red;
 }
