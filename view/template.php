@@ -5,12 +5,12 @@
 		<title> <?= $title ?> </title>
 	
 		<!-- CND Bootstrap -->
-        <link rel="stylesheet" href="./asset/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/bootstrap/css/bootstrap.min.css">
         
         <!-- Style -->
-        <link rel="stylesheet" href="./asset/css/navigation.css">
-        <link rel="stylesheet" href="./asset/css/header.css">
-        <link rel="stylesheet" href="./asset/css/inscription.css">
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/css/navigation.css">
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/css/header.css">
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/css/inscription.css">
 	</head>
 	
 	<body>		
