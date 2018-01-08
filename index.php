@@ -7,7 +7,8 @@
  *  Charge le bon controleur
  *  ceci est un commentaire de test rémy
  */
-require_once('controler/controler.php');
+require_once('./config.php');
+require_once(ROOT_FOLDER . DS. 'controler/controler.php');
 
 
 try
@@ -21,7 +22,7 @@ try
         }else
         {
             // controleur par défaut
-            test();
+            defaultMethode();
         }
     }
     else

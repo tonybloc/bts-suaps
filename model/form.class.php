@@ -37,8 +37,17 @@ class Form
      */
     private function getValue($index)
     {
-        
         return isset($this->data[$index]) ? $this->data[$index] : null;
+    }
+    /**
+     * Crée un label
+     * @param string : $text, texte du label
+     * @param string : $for, reférence à un champ de saisie
+     * @return string
+     */
+    public function label($text, $class="", $for="")
+    {
+        return '<label for="'.$for.'" class="'.$class.'">'.$text.'</label>';
     }
     /**
      * Crée un champs de saisie de type 'email'
@@ -47,10 +56,9 @@ class Form
      * @param string : $placeholder, 'placeholder' du champ
      * @return string 
      */
-    public function email($name, $placeholder = "")
+    public function email($name, $id="", $class="", $placeholder = "")
     {
-        return $this->surround(
-            '<input type="email" name="'. $name .'" placeholder="'. $placeholder .'" value="'.$this->getValue($name).'">');
+        return '<input type="email" name="'.$name.'" id="'.$id.'" class="'.$class.'" placeholder="'.$placeholder.'" value="'.$this->getValue($name).'">';
     }
     /**
      * Crée un champs de saisie de type 'password'
@@ -59,10 +67,9 @@ class Form
      * @param string : $placeholder, 'placeholder' du champ
      * @return string
      */
-    public function password($name, $placeholder = "")
+    public function password($name, $id="", $class="", $placeholder="")
     {
-        return $this->surround(
-            '<input type="password" name="'. $name .'" placeholder="'. $placeholder .'" value="'.$this->getValue($name).'">');
+        return '<input type="password" name="'.$name.'" id="'.$id.'" class="'.$class.'" placeholder="'.$placeholder.'" value="'.$this->getValue($name).'">';
     }
     /**
      * Crée un champs de saisie de type 'texte'
@@ -71,18 +78,17 @@ class Form
      * @param string : $placeholder, 'placeholder' du champ
      * @return string
      */
-    public function input($name, $placeholder = "")
+    public function input($name, $id="", $class="", $placeholder="")
     {
-        return $this->surround(
-            '<input type="text" name="'. $name .'" placeholder="'. $placeholder .'" value="'.$this->getValue($name).'">');
+        return '<input type="text" name="'. $name .'" id="'.$id.'" class="'.$class.'" placeholder="'. $placeholder .'" value="'.$this->getValue($name).'">';
     }
     /**
      * Crée un bouton de validation de formulaire
      * 
      * @return string
      */
-    public function submit()
+    public function submit($value, $id="", $class="")
     {
-        return $this->surround('<button type="sumbit">Envoyer</button>');
+        return $this->surround('<button type="sumbit" id="'.$id.'" class="'.$class.'">'.$value.'</button>');
     }
 }

@@ -8,24 +8,14 @@
 */
 
 .header_content{
-  	height: 100%;
   	width: 100%;
 }
 .header_brand{
   	background-color: #62AC5B;
-  
 }
 
-.header_img{
-  
-  	display: block;
-  
-  	/* Alignement verticle de l'image */
-  
-}
 .header_title{
 	text-align:left;
-  	height: 100%;
   	width: 100%;
   	padding: 20px;
 

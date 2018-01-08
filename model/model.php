@@ -7,9 +7,10 @@
  *  Définit les actions à faire ...
  */
 
-require_once('config.php');
-require_once('connect.class.php');
-require_once('user.class.php');
+require_once(ROOT_FOLDER . DS .'model'. DS .'model.php');
+require_once(ROOT_FOLDER . DS .'model'. DS .'connect.class.php');
+require_once(ROOT_FOLDER . DS .'model'. DS .'user.class.php');
+
 
 
 // Variables de connexion commune à toute les méthodes
