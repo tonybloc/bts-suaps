@@ -1,0 +1,7 @@
+.test{
+	padding : 30px;
+	background-color: #FF0000;
+}
+.test > h1{
+	text-align: center;
+}

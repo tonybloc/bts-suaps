@@ -1,5 +1,7 @@
 <?php 
-include_once('connect.class.php');
+include_once(ROOT_FOLDER . DS .'model'. DS .'connect.class.php');
+
+
 /**
  * Class User
  */
@@ -37,17 +39,24 @@ class User
      * Crée une connexion avec la bdd
      * @var unknown
      */
-    //private $_myConnection = new Connection();
+    private $_myConnection;
     
     
     public function __construct($data = array())
     {
-        $this->_firstName = $this->getValue('firstName');
-        $this->_lastName = $this->getValue('lastName');
-        $this->_email = $this->getValue('email');
-        $this->_password = $this->getValue('password');
-        $this->_nbTicketSemaine = 0;     // à modifier si besoin (prochaine fonctionalité)
-        $this->_nbTicketWeek = 0;        // à modifier si besoin (prochaine fonctionalité)
+        if(!empty($data))
+        {
+            $this->_firstName = $this->getValue('firstName');
+            $this->_lastName = $this->getValue('lastName');
+            $this->_email = $this->getValue('email');
+            $this->_password = $this->getValue('password');
+            $this->_nbTicketSemaine = 0;     // à modifier si besoin (prochaine fonctionalité)
+            $this->_nbTicketWeek = 0;        // à modifier si besoin (prochaine fonctionalité)
+        }
+        else 
+        {
+               
+        }        
     }
    
     ##### AUTRE METHODES #####
@@ -55,6 +64,11 @@ class User
     private function getValue($index)
     {
         return isset($this->data[$index]) ? $this->data[$index] : null;
+    }
+    
+    private function initConnection()
+    {
+        $this->_myConnection = new Connection();
     }
     
     /**

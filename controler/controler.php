@@ -7,20 +7,14 @@
  *  dans les fichier de vue adéquate. 
  */
 
-
-require_once('model/model.php');
-//require_once('model/user.class.php');
-//require_once('model/form.class.php');
-
+require_once(ROOT_FOLDER.DS .'model'. DS .'model.php');
 
 /**
  * Methode de test (pour l'instant)
  */
 function defaultMethode()
 {
-    
-    require('view/indexView.php');
-    var_dump(userExist("durantmarc@gmail.com"));
+    require(ROOT_FOLDER.DS.'view'.DS.'indexView.php');
     
 }
 

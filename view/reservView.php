@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <main>
 	<section>
 	    <!-- en-tête -->
@@ -73,3 +74,8 @@
 		</div>
 	</section>
 </main>
+=======
+<?php 
+require_once ('../config.php');
+?>
+>>>>>>> branch 'master' of https://gitlab.com/TonyMochel/Projet_SUAPS.git
