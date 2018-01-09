@@ -16,26 +16,13 @@ require_once(ROOT_FOLDER . DS .'model'. DS .'user.class.php');
 // Variables de connexion commune à toute les méthodes
 $myConnection = new Connection();
 
-/**
- * Vérifie si un utilisateur existe dans la base de donnée
- * @param string : $email, email de l'utilisateur
- */
-function userExist($email)
-{ 
-    global $myConnection;
-    
-    $myConnection->query("SELECT * FROM utilisateur WHERE email = :email");
-    
-    $myConnection->bind(':email', $email, PDO::PARAM_STR);
-    $user = $myConnection->single();
-    
-    return (!empty($user)) ? true : false;
-}
+
 /**
  * Recupère les informations d'un utilisateur dans la bdd 
  * @param string $email
  * @return array|NULL
- * retourne la liste des information du l'utilisateur si il existe sinon retourne null
+ * retourne, si un utilisateur existe dans le bdd, la liste des information du l'utilisateur
+ * sinon retourne null
  */
 function getUser($email)
 {
@@ -55,22 +42,14 @@ function getUser($email)
        return null;
    }
 }
-function userConnect($_email, $_password)
+function updateUser($user)
 {
-    if(userExist($_email))
+    // Si $user est bien un utilisateur alors
+    if($user instanceof User)
     {
-        $user = User::getUser($_email);
-        if($_password === $user->getPassword())
-        {
-            $_SESSION['user_login'] = $user->getEmail();
-            var_dump($_SESSION);
-        }
+
     }
-    else
-    {
-        
-    }
-    
 }
+
 
 

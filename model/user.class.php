@@ -1,4 +1,5 @@
 <?php 
+require_once (__DIR__.'/../config.php');
 include_once(ROOT_FOLDER . DS .'model'. DS .'connect.class.php');
 
 
@@ -7,6 +8,15 @@ include_once(ROOT_FOLDER . DS .'model'. DS .'connect.class.php');
  */
 class User
 {
+    /**
+     * 
+     * @var string : identifiant de l'utilisateur
+     */
+    private $_id;
+    /**
+     * @var unknown : Role de l'utilisateur
+     */
+    private $_role;
     /**
      * @var string : nom de l'utilisateur
      */
@@ -32,78 +42,75 @@ class User
      */
     private $_nbTicketSemaine;
     /**
-     * @var array : Donnée utilisée lors de l'inscription d'un utilisateur
+     * @var int : nombre de ticket total utilisé
      */
-    private $_data;
+    private $_nbTicketTotal;
     /**
-     * Crée une connexion avec la bdd
-     * @var unknown
+     * @var array : données de l'utilisateur
      */
-    private $_myConnection;
-    
-    
-    public function __construct($data = array())
+    private $data;
+    public function __construct($data_user = array())
     {
-        if(!empty($data))
+        if(!empty($data_user))
         {
-            $this->_firstName = $this->getValue('firstName');
-            $this->_lastName = $this->getValue('lastName');
-            $this->_email = $this->getValue('email');
-            $this->_password = $this->getValue('password');
-            $this->_nbTicketSemaine = 0;     // à modifier si besoin (prochaine fonctionalité)
-            $this->_nbTicketWeek = 0;        // à modifier si besoin (prochaine fonctionalité)
+            if(array_key_exists("ID_UTIL", $data_user) && array_key_exists("ID_ROLE", $data_user)
+                && array_key_exists("EMAIL", $data_user) && array_key_exists("FIRSTNAME_UTIL", $data_user)
+                    && array_key_exists("LASTNAME_UTIL", $data_user) && array_key_exists("PASSWORD_UTIL", $data_user)
+                        && array_key_exists("NB_TICKETS_SEMAINE", $data_user) && array_key_exists("NB_TICKETS_WEEKEND", $data_user)
+                            && array_key_exists("NB_TICKETS_TOTAL_UTIL", $data_user))
+            {
+                echo "EXISTE";
+                $this->_id = $data_user['ID_UTIL'];
+                $this->_role = $data_user['ID_ROLE'];
+                $this->_email = $data_user['EMAIL'];
+                $this->_firstName = $data_user['FIRSTNAME_UTIL'];
+                $this->_lastName = $data_user['LASTNAME_UTIL'];
+                $this->_password = $data_user['PASSWORD_UTIL'];
+                $this->_nbTicketSemaine = $data_user['NB_TICKETS_SEMAINE'];
+                $this->_nbTicketWeek = $data_user['NB_TICKETS_WEEKEND'];
+                $this->_nbTicketTotal = $data_user['NB_TICKETS_TOTAL_UTIL'];
+            }
+            
         }
-        else 
-        {
-               
-        }        
     }
    
     ##### AUTRE METHODES #####
-    
-    private function getValue($index)
-    {
-        return isset($this->data[$index]) ? $this->data[$index] : null;
-    }
-    
-    private function initConnection()
-    {
-        $this->_myConnection = new Connection();
-    }
-    
-    /**
-     * Mes à jour les informations de l'utilisatateur dans la bdd
-     */
-    public function updateUser()
-    {
         
-    }
-    
     
     
     ##### ACCESSEURS #####
-    
+    public function getId()
+    {
+        return $this->_id;
+    }
+    public function getRole()
+    {
+        return $this->_role;
+    }
     public function getfirstName()
     {
-        return $this->firstName;
+        return $this->_firstName;
     }
     public function getlastName()
     {
-        return $this->lastName;
+        return $this->_lastName;
     }
     public function getEmail()
     {
-        return $this->email;
+        return $this->_email;
     }
     public function getNbTicketWeek()
     {
-        return $this->nbTicketWeek;
+        return $this->_nbTicketWeek;
     }
     public function getNbTicketSemaine()
     {
-        return $this->nbTicketSemaine;
+        return $this->_nbTicketSemaine;
     }
-    
+    public function getNbTicketTotal()
+    {
+        return $this->_nbTicketTotal;
+    }
     
     ##### MUTTATEURS ######
     
@@ -189,6 +196,17 @@ class User
         if(is_int($nbTicket))
         {
             $this->_nbTicketWeek -= $nbTicket;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public function setTicketTotal($nbTicketUtilise)
+    {
+        if(is_int($nbTicketUtilise))
+        {
+            $this->_nbTicketWeek += $nbTicketUtilise;
         }
         else
         {
