@@ -48,7 +48,6 @@ function updateUser($user)
     if($user instanceof User)
     {
 
-        // :eyes:
     }
 }
 
