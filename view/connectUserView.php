@@ -1,9 +1,9 @@
 <?php 
+require_once(__DIR__ .'/../config.php');
+require_once(ROOT_FOLDER.DS.'model'.DS.'form.class.php');
 
 session_start();
 
-require_once(__DIR__ .'/../config.php');
-require_once(ROOT_FOLDER.DS.'model'.DS.'form.class.php');
 
 $title = "Golf Suaps";
 
@@ -67,7 +67,7 @@ ob_start();
 		</div>    	
     </section>
     <?php 
-        var_dump($_SESSION);
+        //var_dump($_SESSION);
     ?>
     
 <?php 
