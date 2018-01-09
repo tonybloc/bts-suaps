@@ -83,12 +83,6 @@ class User
     
     ##### ACCESSEURS #####
     
-    public static function getUser($email)
-    {
-        $lastName = "malanie";
-        $firstName = "Jean";
-        
-    }
     public function getfirstName()
     {
         return $this->firstName;
