@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/formulaire.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/navigation.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/header.css">
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/css/calendar.css">
 		
 		<style>
 		  section {
