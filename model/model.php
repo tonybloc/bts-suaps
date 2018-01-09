@@ -47,7 +47,7 @@ function updateUser($user)
     // Si $user est bien un utilisateur alors
     if($user instanceof User)
     {
-        
+        // Commentaire Anthony
     }
 }
 
