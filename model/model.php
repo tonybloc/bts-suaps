@@ -42,23 +42,14 @@ function getUser($email)
        return null;
    }
 }
-function userConnect($_email, $_password)
+function updateUser($user)
 {
-    
-    if(userExist($_email))
-    {
-        $user = User::getUser($_email);
-        if($_password === $user->getPassword())
-        {
-            $_SESSION['user_login'] = $user->getEmail();
-            var_dump($_SESSION);
-        }
-    }
-    else
+    // Si $user est bien un utilisateur alors
+    if($user instanceof User)
     {
         
     }
-    
 }
+
 
 

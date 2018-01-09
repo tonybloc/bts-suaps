@@ -33,45 +33,38 @@ class User
      */
     private $_nbTicketSemaine;
     /**
-     * @var array : Donnée utilisée lors de l'inscription d'un utilisateur
+     * @var int : nombre de ticket total utilisé
      */
-    private $_data;
+    private $_nbTicketTotal;
     /**
-     * Crée une connexion avec la bdd
-     * @var unknown
+     * @var array : données de l'utilisateur
      */
-    private $_myConnection;
-    
-    
-    public function __construct($data = array())
+    private $data;
+    public function __construct($data_user)
     {
-        if(!empty($data))
+        
+        if(isset($data_user))
         {
-            $this->_firstName = $this->getValue('firstName');
-            $this->_lastName = $this->getValue('lastName');
-            $this->_email = $this->getValue('email');
-            $this->_password = $this->getValue('password');
-            $this->_nbTicketSemaine = 0;     // à modifier si besoin (prochaine fonctionalité)
-            $this->_nbTicketWeek = 0;        // à modifier si besoin (prochaine fonctionalité)
+            if(array_key_exists("EMAIL", $data_user && array_key_exists("FIRSTNAME_UTIL", $data_user)
+                && array_key_exists("LASTNAME_UTIL", $data_user) && array_key_exists("PASSWORD_UTIL", $data_user)
+                    && array_key_exists("NB_TICKETS_SEMAINE", $data_user) && array_key_exists("NB_TICKETS_WEEKEND", $data_user)
+                        && array_key_exists("NB_TICKETS_TOTAL_UTIL", $data_user)))
+            {
+                
+                $this->_email = $myUser['EMAIL'];
+                $this->_firstName = $myUser['FIRSTNAME_UTIL'];
+                $this->_lastName = $myUser['LASTNAME_UTIL'];
+                $this->_password = $myUser['PASSWORD_UTIL'];
+                $this->_nbTicketSemaine = $myUser['NB_TICKETS_SEMAINE'];
+                $this->_nbTicketWeek = $myUser['NB_TICKETS_WEEKEND'];
+                $this->_nbTicketTotal = $myUser['NB_TICKETS_TOTAL_UTIL'];
+            }
+            
         }
-        else 
-        {
-               
-        }        
     }
    
     ##### AUTRE METHODES #####
-    
-    private function getValue($index)
-    {
-        return isset($this->data[$index]) ? $this->data[$index] : null;
-    }
-    
-    private function initConnection()
-    {
-        $this->_myConnection = new Connection();
-    }
-    
+        
     /**
      * Mes à jour les informations de l'utilisatateur dans la bdd
      */
@@ -80,31 +73,32 @@ class User
         
     }
     
-    
-    
     ##### ACCESSEURS #####
     
     public function getfirstName()
     {
-        return $this->firstName;
+        return $this->_firstName;
     }
     public function getlastName()
     {
-        return $this->lastName;
+        return $this->_lastName;
     }
     public function getEmail()
     {
-        return $this->email;
+        return $this->_email;
     }
     public function getNbTicketWeek()
     {
-        return $this->nbTicketWeek;
+        return $this->_nbTicketWeek;
     }
     public function getNbTicketSemaine()
     {
-        return $this->nbTicketSemaine;
+        return $this->_nbTicketSemaine;
     }
-    
+    public function getNbTicketTotal()
+    {
+        return $this->_nbTicketTotal;
+    }
     
     ##### MUTTATEURS ######
     
@@ -190,6 +184,17 @@ class User
         if(is_int($nbTicket))
         {
             $this->_nbTicketWeek -= $nbTicket;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public function setTicketTotal($nbTicketUtilise)
+    {
+        if(is_int($nbTicketUtilise))
+        {
+            $this->_nbTicketWeek += $nbTicketUtilise;
         }
         else
         {
