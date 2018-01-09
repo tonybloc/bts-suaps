@@ -23,6 +23,7 @@
           ?>
           </li>
           <li><a href="#">Association AGJSEP</a></li>
+          <li><a href="view/reservView.php">Réservation</a></li>
           <li><a href="#">Autre...</a></li>
           <li>
           <?php
