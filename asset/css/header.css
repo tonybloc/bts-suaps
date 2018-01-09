@@ -7,24 +7,26 @@
 @Title : Header style
 */
 
-.header_content{
+.header_content {
   	width: 100%;
 }
-.header_brand{
+
+.header_brand {
+	padding:20px;
+	
   	background-color: #62AC5B;
 }
 
-.header_title{
-	text-align:left;
+.header_title {
+	text-align: left;
   	width: 100%;
-  	padding: 20px;
 
 }
-.header_title > h1{
+.header_title > h1 {
   	font-weight: bolder;
   	text-transform: uppercase;
   	margin: 0px;
 }
-.header_title > p{
+.header_title > p {
 	margin:0px;
 }

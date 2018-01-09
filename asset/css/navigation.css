@@ -3,6 +3,7 @@
 }
 .navigation >.nav-pills > li > a{
 	border-radius:0px;
+	color : #333;
 }
 .navigation >.nav-pills > li > a:hover{
 	background-color:#62AC5B;

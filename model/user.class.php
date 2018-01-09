@@ -1,4 +1,5 @@
 <?php 
+require_once (__DIR__.'/../config.php');
 include_once(ROOT_FOLDER . DS .'model'. DS .'connect.class.php');
 
 

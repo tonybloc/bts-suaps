@@ -2,6 +2,7 @@
     session_start();
     require_once(__DIR__. '/../config.php');
     require_once(ROOT_FOLDER . DS .'model'. DS .'model.php');
+    require_once(ROOT_FOLDER . DS .'model'. DS .'utilisater.php');
     
     
     // DECONNEXION DE L'UTILISATEUR
@@ -40,6 +41,7 @@
             // On vérifie que le password correspond
             if($current_user['PASSWORD_UTIL'] == $password)
             {
+                $_SESSION['user_test'] = new User();
                 // Connexion de l'utilisateur
                 $_SESSION['user'] = array(
                     'email' => $current_user['EMAIL'],
