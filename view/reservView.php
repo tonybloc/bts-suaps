@@ -11,7 +11,7 @@ require_once (ROOT_FOLDER.DS.'view'.DS.'header.php');
 
 ob_start();
 
-$calendar1 = new Calendar(20,12,date("Y"));
+$calendar1 = new Calendar(date("d"),date("m"),date("Y"));
 ?>
 
 <h1 style="text-align:center">
