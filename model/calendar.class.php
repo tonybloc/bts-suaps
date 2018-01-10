@@ -59,11 +59,12 @@ class Calendar
         echo "<div id='content'>";
         echo "<table class='p' >";
         
-   
+        $dayTemp = $this->day;
         $tempNbL= 1;
         for($i = 1 ; $i < 76; $i++) 
         {
-            $dayTemp = $this->day + $tempNbL-1;
+            
+            //$dayTemp = $this->day+ $tempNbL-1;
             //générations des cases
             if( $dayTemp>$this->nbDays)
             {
@@ -85,32 +86,38 @@ class Calendar
             }
             else
             {
+             
                 if ($i == 6)
                     $this->dateFormatter   = cal_to_jd(CAL_GREGORIAN, $this->month,$this->day,$this->year);
                 else
                 {
-                    $this->dateFormatter   = cal_to_jd(CAL_GREGORIAN, $this->month, $this->day+($i-(4*$tempNbL)-2),$this->year);
+                    $this->dateFormatter   = cal_to_jd(CAL_GREGORIAN, $this->month, $dayTemp,$this->year);
                 }
             }
             $this->dayWeek = jddayofweek($this->dateFormatter);
-                if ($i == 1)
-                    echo "<tr><td class='plein'>".$this->getMonthToString($this->month)."</td>";
-                else if ($i%5==1 && $i > 1)
+            if ($i == 1){
+                    echo "<tr><td class='plein'>".$this->getMonthYearToString()."</td>";
+            }else if ($i%5==1 && $i > 1)
                     echo "<tr><td class='plein'>".$this->getDayToString($this->dayWeek)." ".$dayTemp."</td>";
                 else if ($i%5==0 && $i > 5)
                 {
-                    echo "<td class='plein'>".$i."</td></tr>";
+                    echo "<td class='plein' id=j4-".$this->year."-".$this->month."-".$dayTemp."></td></tr>";
                     $tempNbL++;
+                    $dayTemp ++;
                 }
                 else if ($i == 5)
                     echo "<td class='plein'>Joueur ".($i-1)."</td></tr>";
                 else if ($i<6 && $i>1)
                     echo "<td class='plein'>Joueur ".($i-1)."</td>";
                 else 
-                    echo "<td class='plein'></td>";
-                    
-                    //echo "<p>i = ".$i."  daytemp =".$dayTemp." day =".$this->day." tempbl =".$tempNbL."</p>";
+                    if ($i%5==2 )
+                        echo "<td class='plein' id=j1-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                    else if ($i%5==3 )
+                        echo "<td class='plein' id=j2-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                    else if ($i%5==4 )
+                        echo "<td class='plein' id=j3-".$this->year."-".$this->month."-".$dayTemp."></td>";
         }
+        
         echo "</table>";
         echo "</div>";
     }
@@ -163,13 +170,19 @@ class Calendar
         $this->nbDays = $nbDays;
     }
 
-    public function getMonthToString($nb)
+    public function getMonthYearToString()
     {
-        $key = $nb-1;
         $ap = array("Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre");
-        return $ap[$key];
+        $tempMonth = $ap[$this->month-1] ." ".$this->year;
+        if ($this->day+14 >$this->nbDays )
+        {
+            if ($this->month == 12)
+                $tempMonth = $ap[11]."/".$ap[0] ." - ". $this->year."/".($this->year+1);
+            else
+                $tempMonth =$ap[$this->month]."/".$ap[$this->month+1] ." - ". $this->year;
+        }
+        return $tempMonth;
     }
-    
     public function getDayToString($nb)
     {
        
