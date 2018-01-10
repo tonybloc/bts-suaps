@@ -4,7 +4,7 @@ require_once(ROOT_FOLDER.DS.'model'.DS.'form.class.php');
 
 session_start();
 
-
+// COMMENTIARE
 $title = "Golf Suaps";
 
 // Création du formulaire
