@@ -1,0 +1,15 @@
+.panel_stat
+{
+	padding : 10px;
+	background-color: #EFEFEF;
+	width : 150px;
+	min-width : 150px;
+	max-width : 200px;
+}
+
+.title_stat{
+	width: 100px;
+	max-width : 100px;
+}
+.value_stat{
+}
