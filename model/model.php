@@ -44,12 +44,22 @@ function getUser($email)
 }
 function updateUser($user)
 {
+    global $myConnection;
     // Si $user est bien un utilisateur alors
     if($user instanceof User)
     {
-
+        
     }
 }
+
+function generateStatistic($user)
+{
+    if($user instanceof User)
+    {
+        "<div></div>";
+    }
+}
+
 
 
 

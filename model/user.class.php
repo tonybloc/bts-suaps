@@ -85,13 +85,37 @@ class User
     }
     public function getRole()
     {
+        // 1 : Administrateur
+        // 2 : Membre
+        // 3 : invité
+        // 4 : Adhérant
         return $this->_role;
     }
-    public function getfirstName()
+    public function getRoleLib()
+    {
+        switch ($this->_role){
+            case 1:
+                return "Administrateur";
+                break;
+            case 2:
+                return "Membre";
+                break;
+            case 3:
+                return "Invité";
+                break;
+            case 4:
+                return "Adhérant";
+                break;
+            default:
+                return null;
+            
+        }
+    }
+    public function getFirstName()
     {
         return $this->_firstName;
     }
-    public function getlastName()
+    public function getLastName()
     {
         return $this->_lastName;
     }
