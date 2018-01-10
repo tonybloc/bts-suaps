@@ -1,5 +1,5 @@
 <?php 
-namespace model;
+
 ?>
 <!-- on inclus la feuille de style -->
 <link href="calendrier.css" rel="stylesheet" type="text/css" />

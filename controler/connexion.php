@@ -3,7 +3,11 @@ require_once(__DIR__. '/../config.php');
 require_once(ROOT_FOLDER . DS .'model'. DS .'model.php');
 require_once(ROOT_FOLDER . DS .'model'. DS .'user.class.php');
 
-session_start();
+// Vérifie si une session existe déja sinon on la crée
+if(!isset($_SESSION))
+{
+    session_start();
+}
    
     
     // DECONNEXION DE L'UTILISATEUR

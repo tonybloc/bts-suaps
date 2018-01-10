@@ -63,3 +63,4 @@ function generateStatistic($user)
 
 
 
+

@@ -108,7 +108,6 @@ class User
                 break;
             default:
                 return null;
-            
         }
     }
     public function getFirstName()

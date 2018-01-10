@@ -5,15 +5,18 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title> <?= $title ?> </title>
 	
-		<!-- CND Bootstrap -->
-        <link rel="stylesheet" href="/Projet_SUAPS/asset/bootstrap/css/bootstrap.min.css">
-        
+		
         <!-- Style -->
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/css/calendar.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/formulaire.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/navigation.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/header.css">
-        <link rel="stylesheet" href="/Projet_SUAPS/asset/css/calendar.css">
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/css/statistique.css">
+     
 		
+		<!--Style Bootstrap -->
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/bootstrap/css/bootstrap.min.css">
+        
 		<style>
 		  section {
 		      padding : 20px 0px;
@@ -22,7 +25,9 @@
 	</head>
 	
 	<body>		
-		<?= $content ?>
+		<?= (isset($content))?$content:null  ?>
+		<?= (isset($content_stat))?$content_stat:null ?>
+		<?= (isset($content_reserv))?$content_reserv:null ?>
 	</body>
 	<!-- Script -->
 	<!--
