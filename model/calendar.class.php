@@ -168,7 +168,6 @@ class Calendar
     {
         $this->nbDays = $nbDays;
     }
-
     public function getMonthYearToString()
     {
         $ap = array("Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre");
