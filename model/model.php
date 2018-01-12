@@ -59,6 +59,28 @@ function inscriptUser($userEmail, $place, $date )
     
 }
 
+function getUsersToInvite()
+{
+    global $myConnection;
+    $myConnection->query("SELECT LASTNAME_UTIL,FIRSTNAME_UTIL,EMAIL,ID_ROLE FROM Utilisateur");
+    return $myConnection->resultset();
+}
+    
+    
+
+function initSessionUsers(){
+    global $myConnection;
+    
+    $bufferTabUsers = getUsersToInvite();
+    $bufferusers = 0;
+    $_SESSION['Users'] = [];
+    foreach($bufferTabUsers as $row => $link)
+    {
+        $bufferusers++;
+        $_SESSION['Users'][$bufferusers]=$link['LASTNAME_UTIL'].'..'.$link['FIRSTNAME_UTIL'].'..'.$link['EMAIL'].'..'.$link['ID_ROLE'];
+        
+    }
+}
 
 
 
