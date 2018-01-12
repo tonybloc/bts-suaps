@@ -42,6 +42,8 @@ function getUser($email)
        return null;
    }
 }
+
+
 function updateUser($user)
 {
     global $myConnection;
@@ -52,13 +54,12 @@ function updateUser($user)
     }
 }
 
-function generateStatistic($user)
+function inscriptUser($userEmail, $place, $date )
 {
-    if($user instanceof User)
-    {
-        "<div></div>";
-    }
+    
 }
+
+
 
 
 
