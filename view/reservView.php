@@ -19,7 +19,6 @@ $calendar1 = new Calendar(date("d"),date("m"),date("Y"));
 </h1>
 	<?php
 	   echo $calendar1->_generate();
-	   
 	   ?>
 
 <?php 

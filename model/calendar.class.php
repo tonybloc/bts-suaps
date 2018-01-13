@@ -95,7 +95,7 @@ class Calendar
             }
             $this->dayWeek = jddayofweek($this->dateFormatter);
             if ($i == 1){
-                    echo "<tr><td class='plein'>".$this->getMonthYearToString()."</td>";
+                    echo "<thead><tr><td class='plein'>".$this->getMonthYearToString()."</td>";
             }else if ($i%5==1 && $i > 1)
                     echo "<tr><td class='plein'>".$this->getDayToString($this->dayWeek)." ".$dayTemp."</td>";
                 else if ($i%5==0 && $i > 5)
@@ -103,9 +103,10 @@ class Calendar
                     echo "<td class='plein' id=j4-".$this->year."-".$this->month."-".$dayTemp."></td></tr>";
                     $tempNbL++;
                     $dayTemp ++;
+                    
                 }
                 else if ($i == 5)
-                    echo "<td class='plein'>Joueur ".($i-1)."</td></tr>";
+                    echo "<td class='plein'>Joueur ".($i-1)."</td></tr></thead>";
                 else if ($i<6 && $i>1)
                     echo "<td class='plein'>Joueur ".($i-1)."</td>";
                 else 
