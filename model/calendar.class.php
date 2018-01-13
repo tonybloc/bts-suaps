@@ -63,9 +63,6 @@ class Calendar
         
         $dayTemp = $this->day;
         $tempNbL= 1;
-        
-        echo 'nbDays : ' . $this->nbDays;
-        echo 'day : ' . $this->day;
        
         
         // Génération des case du tableau
@@ -101,59 +98,29 @@ class Calendar
             }
             
             $this->dayWeek = jddayofweek($this->dateFormatter);
-<<<<<<< HEAD
             if ($i == 1){
-                    echo "<thead><tr><td class='plein'>".$this->getMonthYearToString()."</td>";
+                    echo "<thead><tr><td class='cel cel_month'>".$this->getMonthYearToString()."</td>";
             }else if ($i%5==1 && $i > 1)
-                    echo "<tr><td class='plein'>".$this->getDayToString($this->dayWeek)." ".$dayTemp."</td>";
+                    echo "<tr><td class='cel cel_date'>".$this->getDayToString($this->dayWeek)." ".$dayTemp."</td>";
                 else if ($i%5==0 && $i > 5)
                 {
-                    echo "<td class='plein' id=j4-".$this->year."-".$this->month."-".$dayTemp."></td></tr>";
+                    echo "<td class='cel cel_reserv' id=j4-".$this->year."-".$this->month."-".$dayTemp."></td></tr>";
                     $tempNbL++;
                     $dayTemp ++;
                     
                 }
                 else if ($i == 5)
-                    echo "<td class='plein'>Joueur ".($i-1)."</td></tr></thead>";
+                    echo "<td class='cel cel_joueur'>Joueur ".($i-1)."</td></tr></thead>";
                 else if ($i<6 && $i>1)
-                    echo "<td class='plein'>Joueur ".($i-1)."</td>";
+                    echo "<td class='cel cel_joueur'>Joueur ".($i-1)."</td>";
                 else 
                     if ($i%5==2 )
-                        echo "<td class='plein' id=j1-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                        echo "<td class='cel cel_reserv' id=j1-".$this->year."-".$this->month."-".$dayTemp."></td>";
                     else if ($i%5==3 )
-                        echo "<td class='plein' id=j2-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                        echo "<td class='cel cel_reserv' id=j2-".$this->year."-".$this->month."-".$dayTemp."></td>";
                     else if ($i%5==4 )
-                        echo "<td class='plein' id=j3-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                        echo "<td class='cel cel_reserv' id=j3-".$this->year."-".$this->month."-".$dayTemp."></td>";
         }
-=======
-            
-            if ($i == 1)
-            {
-                echo "<tr><th class='cel cel_month'>".$this->getMonthYearToString()."</th>";
-            }
-            else if ($i%5==1 && $i > 1)
-            {
-                echo "<tr><th class='cel cel_date'>".$this->getDayToString($this->dayWeek)." ".$dayTemp."</th>"; 
-            }                
-            else if ($i%5==0 && $i > 5)
-            {
-                echo "<td class='cel cel_reserv' id=j4-".$this->year."-".$this->month."-".$dayTemp."></td></tr>";
-                $tempNbL++;
-                $dayTemp ++;
-            }
-            else if ($i == 5)
-                echo "<td class='cel cel_joueur'>Joueur ".($i-1)."</td></tr>";
-            else if ($i<6 && $i>1)
-                echo "<td class='cel cel_joueur'>Joueur ".($i-1)."</td>";
-            else 
-                if ($i%5==2 )
-                    echo "<td class='cel cel_reserv' id=j1-".$this->year."-".$this->month."-".$dayTemp."></td>";
-                else if ($i%5==3 )
-                    echo "<td class='cel cel_reserv' id=j2-".$this->year."-".$this->month."-".$dayTemp."></td>";
-                else if ($i%5==4 )
-                    echo "<td class='cel cel_reserv' id=j3-".$this->year."-".$this->month."-".$dayTemp."></td>";
-            }
->>>>>>> branch 'master' of https://gitlab.com/TonyMochel/Projet_SUAPS.git
         
         echo "</table>";
         echo "</div>";
