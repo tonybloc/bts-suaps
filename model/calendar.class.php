@@ -38,7 +38,7 @@ class Calendar
     private $dateFormatter;
     
     /**
-     * génère une instance de la classe tableau
+     * Génère une instance de la classe Calendar
      * @param int $_month
      * @param int $_year
      */
@@ -50,22 +50,29 @@ class Calendar
         $this->nbDays           = cal_days_in_month(CAL_GREGORIAN, $_month, $_year);
     }
     
-    /*
-     * 
+    /**
+     * Génére le calendrier
      */
     public function _generate()
     {
+       
+        /*-- GENERATION DU CALENDRIER --*/
+        
         echo "<div id='content'>";
-        echo "<table class='p' >";
+        echo "<table class='calendrier' >";
         
         $dayTemp = $this->day;
         $tempNbL= 1;
+        
+        echo 'nbDays : ' . $this->nbDays;
+        echo 'day : ' . $this->day;
+       
+        
+        // Génération des case du tableau
         for($i = 1 ; $i < 76; $i++) 
         {
             
-            //$dayTemp = $this->day+ $tempNbL-1;
-            //générations des cases
-            if( $dayTemp>$this->nbDays)
+            if($dayTemp > $this->nbDays)
             {
                 if ($this->month == 12)
                 {
@@ -81,11 +88,10 @@ class Calendar
                     $dayTemp = 1;
                     $tempNbL = 1;
                 }
-                    $this->dateFormatter   = cal_to_jd(CAL_GREGORIAN, $this->month, $this->day,$this->year);
+                $this->dateFormatter   = cal_to_jd(CAL_GREGORIAN, $this->month, $this->day,$this->year);
             }
             else
             {
-             
                 if ($i == 6)
                     $this->dateFormatter   = cal_to_jd(CAL_GREGORIAN, $this->month,$this->day,$this->year);
                 else
@@ -93,7 +99,9 @@ class Calendar
                     $this->dateFormatter   = cal_to_jd(CAL_GREGORIAN, $this->month, $dayTemp,$this->year);
                 }
             }
+            
             $this->dayWeek = jddayofweek($this->dateFormatter);
+<<<<<<< HEAD
             if ($i == 1){
                     echo "<thead><tr><td class='plein'>".$this->getMonthYearToString()."</td>";
             }else if ($i%5==1 && $i > 1)
@@ -117,6 +125,35 @@ class Calendar
                     else if ($i%5==4 )
                         echo "<td class='plein' id=j3-".$this->year."-".$this->month."-".$dayTemp."></td>";
         }
+=======
+            
+            if ($i == 1)
+            {
+                echo "<tr><th class='cel cel_month'>".$this->getMonthYearToString()."</th>";
+            }
+            else if ($i%5==1 && $i > 1)
+            {
+                echo "<tr><th class='cel cel_date'>".$this->getDayToString($this->dayWeek)." ".$dayTemp."</th>"; 
+            }                
+            else if ($i%5==0 && $i > 5)
+            {
+                echo "<td class='cel cel_reserv' id=j4-".$this->year."-".$this->month."-".$dayTemp."></td></tr>";
+                $tempNbL++;
+                $dayTemp ++;
+            }
+            else if ($i == 5)
+                echo "<td class='cel cel_joueur'>Joueur ".($i-1)."</td></tr>";
+            else if ($i<6 && $i>1)
+                echo "<td class='cel cel_joueur'>Joueur ".($i-1)."</td>";
+            else 
+                if ($i%5==2 )
+                    echo "<td class='cel cel_reserv' id=j1-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                else if ($i%5==3 )
+                    echo "<td class='cel cel_reserv' id=j2-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                else if ($i%5==4 )
+                    echo "<td class='cel cel_reserv' id=j3-".$this->year."-".$this->month."-".$dayTemp."></td>";
+            }
+>>>>>>> branch 'master' of https://gitlab.com/TonyMochel/Projet_SUAPS.git
         
         echo "</table>";
         echo "</div>";
@@ -171,14 +208,17 @@ class Calendar
     }
     public function getMonthYearToString()
     {
-        $ap = array("Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre");
-        $tempMonth = $ap[$this->month-1] ." ".$this->year;
+        // Liste des Mois
+        $listeDesMois = array("Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre");
+        
+        $tempMonth = $listeDesMois[$this->month-1] ." ".$this->year;
+        
         if ($this->day+14 >$this->nbDays )
         {
             if ($this->month == 12)
-                $tempMonth = $ap[11]."/".$ap[0] ." - ". $this->year."/".($this->year+1);
+                $tempMonth = $listeDesMois[11]."/".$listeDesMois[0] ." - ". $this->year."/".($this->year+1);
             else
-                $tempMonth =$ap[$this->month]."/".$ap[$this->month+1] ." - ". $this->year;
+                $tempMonth =$listeDesMois[$this->month]."/".$listeDesMois[$this->month+1] ." - ". $this->year;
         }
         return $tempMonth;
     }

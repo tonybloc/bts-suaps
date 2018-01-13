@@ -26,17 +26,21 @@ if(isset($_SESSION['user']))
   <div class="navigation">
   		<nav class="navbar navbar-default">
   			<div class="container-fluid">
+  				
   				<div class="navbar-header">
   					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-mobile" aria-expanded="false">
-  						<span></span>	
+  						<span class="sr-only">Toggle navigation</span>
+  						<span class="icon-bar"></span>
+  						<span class="icon-bar"></span>
+  						<span class="icon-bar"></span>	
   					</button>
   					<div class="navbar-brand">
   						<a href="/Projet_SUAPS/index.php">
   							<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
   						</a>
   					</div>
-  				</div>
-  				
+  				</div>  	
+  							
   				<div class="collapse navbar-collapse" id="navbar-collapse-mobile">
   					<ul class="nav navbar-nav">
   						<li><a href="/Projet_SUAPS/view/reservView.php">Réservation</a></li>
