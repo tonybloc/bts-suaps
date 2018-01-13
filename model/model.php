@@ -85,30 +85,41 @@ function completeCalendar()
 {
     
 }
-
+/**
+ * 
+ * @return unknown
+ */
 function getUsersToInvite()
 {
     global $myConnection;
     $myConnection->query("SELECT LASTNAME_UTIL,FIRSTNAME_UTIL,EMAIL,ID_ROLE FROM Utilisateur");
     return $myConnection->resultset();
 }
-    
-    
-
-function initSessionUsers(){
+/**
+ * crée une variable de session user qui contient uen chaine de charachtère
+ * contenant les noms, prenoms, et mail de chaque user présente dans la BDD
+ */
+function initSessionUsers()
+{
     global $myConnection;
     
     $bufferTabUsers = getUsersToInvite();
     $bufferusers = 0;
-    $_SESSION['Users'] = [];
+    $_SESSION['Users']= "[";
     foreach($bufferTabUsers as $row => $link)
     {
         $bufferusers++;
-        $_SESSION['Users'][$bufferusers]=$link['LASTNAME_UTIL'].'..'.$link['FIRSTNAME_UTIL'].'..'.$link['EMAIL'].'..'.$link['ID_ROLE'];
-        
+        $_SESSION['Users'].="{'name':'".$link['FIRSTNAME_UTIL']."','lastname':'".$link['LASTNAME_UTIL']."','email':'".$link['EMAIL']."'},";
     }
+    $_SESSION['Users'] = substr($_SESSION['Users'],0,strlen($_SESSION['Users'])-1);
+    $_SESSION['Users'].= "]";
 }
 
+function getdatereservations()
+{
+    global $myConnection;
+    $myConnection->query("SELECT LASTNAME_UTIL,FIRSTNAME_UTIL,EMAIL,ID_ROLE FROM Utilisateur");
+}
 
 
 
