@@ -63,11 +63,7 @@ class Calendar
         
         $dayTemp = $this->day;
         $tempNbL= 1;
-        
-        echo 'nbDays : ' . $this->nbDays;
-        echo 'day : ' . $this->day;
-       
-        
+              
         // Génération des case du tableau
         for($i = 1 ; $i < 76; $i++) 
         {
