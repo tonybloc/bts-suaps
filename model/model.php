@@ -54,7 +54,34 @@ function updateUser($user)
     }
 }
 
-function inscriptUser($userEmail, $place, $date )
+/**
+ * reserve à une place et à une date donnée un utilisateur
+ * @param unknown $userEmail
+ * @param unknown $place
+ * @param unknown $date (format : YYYY-MM-dd)
+ * @param unknown $etat (0: vide,  1: reserver, 2:inviter, 3:annuler) 
+ */
+function reservation($userEmail, $idPlace, $date, $etat)
+{
+    global $myConnection;
+    $myUser = getUser($userEmail);
+    
+    $userId = $myUser['ID_UTIL'];
+        
+    $myConnection->query('INSERT INTO reserver(ID_UTIL, ID_PLACE, DATE_RESERVATION, ETAT) VALUES (:idUser, :idPlace, :dateReserv, :etat)');
+    $myConnection->bind(':idUser', $userId, PDO::PARAM_INT);
+    $myConnection->bind(':idPlace', $idPlace, PDO::PARAM_INT);
+    $myConnection->bind(':dateReserv', $date, PDO::PARAM_STR);
+    $myConnection->bind(':etat', $etat, PDO::PARAM_INT);
+    
+    $myConnection->execute(); 
+}
+
+
+/**
+ * Remplie le calendrier avec les données contenu dans la bdd;
+ */
+function completeCalendar()
 {
     
 }

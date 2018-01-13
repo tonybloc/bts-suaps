@@ -8,7 +8,6 @@ if(!isset($_SESSION))
 }
 ?>
 
-</script>console.log(<?= unserialize($_SESSION['user'])->getEmail()?>);</script>
 <?php
 $title = "Golf Suaps"; 
 
