@@ -76,7 +76,9 @@ if(!isset($_SESSION))
     else 
     {
     ?>
-        <p><a class="btn btn-default" href="/Projet_SUAPS/view/connectUserView.php">Se Connecter</a></p>
+    	<p style="text-align:center;padding:5px;margin:5px 0px 0px 0px;"><i class="fa fa-info-circle fa-2x" aria-hidden="true"></i></p>
+    	<p style="text-align:center;padding:5px;">Pour réserver une place, vous devez vous connecter</p>
+        <p style="text-align:center;padding:5px;"><a class="btn btn-default" href="/Projet_SUAPS/view/connectUserView.php">Se Connecter</a></p>
    	<?php 
     }
     ?>

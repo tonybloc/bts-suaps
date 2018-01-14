@@ -49,10 +49,14 @@ ob_start();
             			<?php echo $form->submit("Se Connecter", "input_submit", "btn btn-default")?>
             		</div>
             		<div class="col-sm-4">
-                		<p id="message_connect_error"><?php
-                			if(isset($_SESSION['message_connect_error']))
+                		<?php
+                		if(isset($_SESSION['message_connect_error']) && !empty($_SESSION['message_connect_error']))
                 			{
-                			    echo $_SESSION['message_connect_error'];
+                			    
+                			    echo "<p style='color:red'><i style='padding:5px;color:red;'class='fa fa-times' aria-hidden='true'></i>" . $_SESSION['message_connect_error'] . "</p>";
+                			}
+                			else if(isset($_SESSION['message_connect_success']) && !empty($_SESSION['message_connect_success'])){
+                			    echo "<p style='color:green'><i style='padding:5px;color:green;'class='fa fa-check' aria-hidden='true'></i>" . $_SESSION['message_connect_success'] . "</p>";
                 			}
                 			else 
                 			{
@@ -60,7 +64,6 @@ ob_start();
                 			}
                 			
                 			?>
-            			</p>
             		</div>
             	</div>
         	</form>

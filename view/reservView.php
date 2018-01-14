@@ -32,11 +32,13 @@ require_once (ROOT_FOLDER.DS.'view'.DS.'header.php');
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 panel-left">
 			<?php require_once (ROOT_FOLDER.DS.'view'.DS.'statView.php');?>
-			<?php 
-			if(unserialize($_SESSION['user'])->getRole() == ADMIN)
-			{
-			     require_once (ROOT_FOLDER.DS.'view'.DS.'management.php');    
-			}
+			<?php
+			if(isset($_SESSION['user'])){
+			    if(unserialize($_SESSION['user'])->getRole() == ADMIN)
+			    {
+			        require_once (ROOT_FOLDER.DS.'view'.DS.'management.php');
+			    }
+			}			
 			?>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 panel-right">

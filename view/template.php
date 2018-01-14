@@ -18,13 +18,13 @@
 		<!--Style Bootstrap -->
         <link rel="stylesheet" href="/Projet_SUAPS/asset/bootstrap/css/bootstrap.min.css">
         
+        <!-- Icons -->
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/font-awesome/css/font-awesome.min.css">
+        
+        
 		<style>
 		  body{
-		      background-color:#EFEFEF;
-		      
-		  }
-		  .{
-		      oberflow:none;
+		      background-color:#EFEFEF;		      
 		  }
 		</style>
 	</head>
