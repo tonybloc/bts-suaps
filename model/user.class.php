@@ -87,8 +87,9 @@ class User
     {
         // 1 : Administrateur
         // 2 : Membre
-        // 3 : invité
-        // 4 : Adhérant
+        // 3 : Adhérant
+        // 4 : invité
+        
         return $this->_role;
     }
     public function getRoleLib()
@@ -101,10 +102,10 @@ class User
                 return "Membre";
                 break;
             case 3:
-                return "Invité";
+                return "Adhérant";
                 break;
             case 4:
-                return "Adhérant";
+                return "Invité";
                 break;
             default:
                 return null;

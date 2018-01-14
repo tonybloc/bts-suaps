@@ -96,28 +96,69 @@ class Calendar
             }
             
             $this->dayWeek = jddayofweek($this->dateFormatter);
-            if ($i == 1){
-                    echo "<thead><tr><td class='cel cel_month'>".$this->getMonthYearToString()."</td>";
-            }else if ($i%5==1 && $i > 1)
+            
+            // Première cellule : Mois acctuel
+            if ($i == 1)
+            {
+                    echo "<thead><tr><td class='cel cel_month'></td>";
+            }
+            // Cellule date
+            else if ($i%5==1 && $i > 1)
+            {    
+                // Si le jour est un weekend alors on ajoute une class "cel_weekend" 
+                if( $this->dayWeek == 0 || $this->dayWeek == 6){
+                    echo "<tr><td class='cel cel_date cel_weekend'>".$this->getDayToString($this->dayWeek)." ".$dayTemp."</td>";
+                }else{
                     echo "<tr><td class='cel cel_date'>".$this->getDayToString($this->dayWeek)." ".$dayTemp."</td>";
-                else if ($i%5==0 && $i > 5)
-                {
-                    echo "<td class='cel cel_reserv' id=j4-".$this->year."-".$this->month."-".$dayTemp."></td></tr>";
-                    $tempNbL++;
-                    $dayTemp ++;
-                    
                 }
-                else if ($i == 5)
-                    echo "<td class='cel cel_joueur'>Joueur ".($i-1)."</td></tr></thead>";
-                else if ($i<6 && $i>1)
-                    echo "<td class='cel cel_joueur'>Joueur ".($i-1)."</td>";
-                else 
-                    if ($i%5==2 )
+            }
+            // Joueur 4 (Dernière celule d'une ligne Cellule) 
+            else if ($i%5==0 && $i > 5)
+            {
+                if( $this->dayWeek == 0 || $this->dayWeek == 6){
+                    echo "<td class='cel cel_reserv cel_weekend' id=j4-".$this->year."-".$this->month."-".$dayTemp."></td></tr>";
+                }else{
+                    echo "<td class='cel cel_reserv' id=j4-".$this->year."-".$this->month."-".$dayTemp."></td></tr>";
+                }
+                
+                $tempNbL++;
+                $dayTemp ++;
+                
+            }
+            // Titre des cellules
+            else if ($i == 5)
+                echo "<th class='cel cel_joueur'>Joueur ".($i-1)."</th></tr></thead>";
+            else if ($i<6 && $i>1)
+                echo "<th class='cel cel_joueur'>Joueur ".($i-1)."</th>";
+            // Cellule de reservation : Joueur 1,2,3
+            else{
+                // Joueur 1
+                if ($i%5==2 ){
+                    if ($this->dayWeek == 0 || $this->dayWeek == 6){
+                        echo "<td class='cel cel_reserv cel_weekend' id=j1-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                    }else{
                         echo "<td class='cel cel_reserv' id=j1-".$this->year."-".$this->month."-".$dayTemp."></td>";
-                    else if ($i%5==3 )
+                    }
+                }
+                // Joueur 2
+                else if ($i%5==3 ){
+                    if ($this->dayWeek == 0 || $this->dayWeek == 6){
+                        echo "<td class='cel cel_reserv cel_weekend' id=j2-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                    }else{
                         echo "<td class='cel cel_reserv' id=j2-".$this->year."-".$this->month."-".$dayTemp."></td>";
-                    else if ($i%5==4 )
+                    }                     
+                }
+                // Joueur 3    
+                else if ($i%5==4 ){
+                    if($this->dayWeek == 0 || $this->dayWeek == 6){
+                        echo "<td class='cel cel_reserv cel_weekend' id=j3-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                    }else{
                         echo "<td class='cel cel_reserv' id=j3-".$this->year."-".$this->month."-".$dayTemp."></td>";
+                    }
+                }
+                    
+            }
+            
         }
         
         echo "</table>";

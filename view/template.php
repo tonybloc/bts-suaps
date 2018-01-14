@@ -12,14 +12,19 @@
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/navigation.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/header.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/statistique.css">
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/css/reservation.css">
      
 		
 		<!--Style Bootstrap -->
         <link rel="stylesheet" href="/Projet_SUAPS/asset/bootstrap/css/bootstrap.min.css">
         
 		<style>
-		  section {
-		      padding : 20px 0px;
+		  body{
+		      background-color:#EFEFEF;
+		      
+		  }
+		  .{
+		      oberflow:none;
 		  }
 		</style>
 	</head>

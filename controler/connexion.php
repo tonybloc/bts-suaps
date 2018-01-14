@@ -52,9 +52,10 @@ if(!isset($_SESSION))
                 
                 // Message d'erreur à vide
                 $_SESSION['message_connect_error'] = "";
-                var_dump(unserialize($_SESSION['user']));
+                
+                //var_dump(unserialize($_SESSION['user']));
                 // Rediréction vers la page d'acceuil
-                //header('Location: /Projet_SUAPS/view/indexView.php');
+                header('Location: /Projet_SUAPS/view/indexView.php');
             }
             else
             {
@@ -68,7 +69,7 @@ if(!isset($_SESSION))
             $_SESSION['message_connect_error'] = "Identifiant ou mot de passe invalide";
         }
         //R
-        //header('Location: /Projet_SUAPS/view/connectUserView.php');
+        header('Location: /Projet_SUAPS/view/connectUserView.php');
     }
     
     
