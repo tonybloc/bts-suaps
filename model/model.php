@@ -115,11 +115,21 @@ function initSessionUsers()
     $_SESSION['Users'].= "]";
 }
 
-function fillCalendar()
+function fillcalendar()
 {
     global $myConnection;
-    $myCoonnection->query();
-    
+    $myConnection->query(
+        "SELECT LASTNAME_UTIL,
+        FIRSTNAME_UTIL,
+        ID_PLACE,
+        DATE_FORMAT(DATE_RESERVATION, '%Y-%M-%D'),
+        EMAIL 
+        FROM utilisateur u 
+        INNER JOIN reserver r 
+        ON r.ID_UTIL = u.ID_UTIL 
+        WHERE DATE_RESERVATION >= CURDATE() 
+        AND DATE_RESERVATION <= DATE_ADD(DATE_RESERVATION, INTERVAL 15 DAY)");
+    return $myConnection->resultset();
 }
 
 
