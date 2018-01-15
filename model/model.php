@@ -50,10 +50,57 @@ function updateUser($user)
     // Si $user est bien un utilisateur alors
     if($user instanceof User)
     {
-        
+        $myConnection;
     }
 }
-
+/**
+ * 
+ * @param unknown $user
+ * @return string
+ */
+function convertUserToStringJS($user)
+{
+    $str = "{ 'id' : '". $user->getId() ."', 'email' : '". $user->getEmail() ."', 'lastName' : '".$user->getLastName()."', 'name' : '".$user->getFirstName()."', 'role' : '".$user->getRole()."'}";
+    return $str;
+}
+/**
+ * Transforme un tableau (utilisateur) en chaine
+ * @param unknown $array
+ * @return string
+ */
+function convertOneArrayUserToStringJS($array)
+{
+    $str = "'id' : ". $array['ID_UTIL'] .", 'email' : '". $array['EMAIL'] ."', 'lastName' : '".$array['LASTNAME_UTIL']."', 'name' : '".$array['FIRSTNAME_UTIL']."', 'role' : ".$array['ID_ROLE'];
+    return $str;
+}
+/**
+ * Transforme le tableau des utilisateurs dans la bdd en chaine
+ * @return string
+ */
+function convertAllUserToStringJS()
+{
+    $allUsersString = "{";
+    $allUsers = getUsersToInvite();
+    var_dump($allUsers);
+    foreach($allUsers as $array){
+        $allUsersString .= convertOneArrayUserToStringJS($array).",";
+    }
+        
+    return substr($allUsersString, 0, -1) . "}";
+}
+function initScriptJS()
+{
+    echo '<script>';
+    echo 'var arrayUser = new Array();';
+    
+    $allUsers = getUsersToInvite();
+    foreach ($allUsers as $array)
+    {
+        echo "userArray.push(". convertOneArrayUserToStringJS($array). ")";
+    }
+    echo "console.log(arrayUser);";
+    echo '</script>';
+}
 /**
  * reserve à une place et à une date donnée un utilisateur
  * @param unknown $userEmail
@@ -77,7 +124,17 @@ function reservation($userEmail, $idPlace, $date, $etat)
     $myConnection->execute(); 
 }
 
-
+/**
+ * Décompte les ticket pour un utilisateur
+ * @param unknown $dateCourrante
+ * @param unknown $dateResrvation
+ * @param unknown $listePersonne
+ */
+function decomptePlace($email)
+{
+    $user = getUser($email);
+    var_dump($user);
+}
 /**
  * Remplie le calendrier avec les données contenu dans la bdd;
  */
@@ -92,7 +149,7 @@ function completeCalendar()
 function getUsersToInvite()
 {
     global $myConnection;
-    $myConnection->query("SELECT LASTNAME_UTIL,FIRSTNAME_UTIL,EMAIL,ID_ROLE FROM Utilisateur");
+    $myConnection->query("SELECT ID_UTIL,LASTNAME_UTIL,FIRSTNAME_UTIL,EMAIL,ID_ROLE FROM Utilisateur");
     return $myConnection->resultset();
 }
 /**
