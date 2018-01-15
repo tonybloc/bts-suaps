@@ -53,6 +53,6 @@ if(!isset($_SESSION))
 	 -->
 	<script src="/Projet_SUAPS/asset/js/fill.js"></script>
 	<script src="/Projet_SUAPS/asset/js/app.js"></script>
-	<script src="/Projet_SUAPS/asset/js/validationForm.js"></script>
+	
 
 </html>

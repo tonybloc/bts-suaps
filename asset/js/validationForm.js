@@ -43,7 +43,7 @@ $().ready(function() {
 });
 
 jQuery.validator.addMethod("EmailUnique", function(value, element){
-	return this.optional(element) || .test(value);
+	return this.optional(element) || this.test(value);
 }, "L'Email doit ëtre unique");
 
 // $("#formConnection").validate();
