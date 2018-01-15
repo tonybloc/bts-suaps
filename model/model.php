@@ -172,13 +172,11 @@ function initSessionUsers()
     $_SESSION['Users'].= "]";
 }
 
-function getdatereservations()
+function fillCalendar()
 {
     global $myConnection;
-    $myConnection->query("SELECT LASTNAME_UTIL,FIRSTNAME_UTIL,EMAIL,ID_ROLE FROM Utilisateur");
+    $myCoonnection->query();
+    
 }
-
-
-
 
 
