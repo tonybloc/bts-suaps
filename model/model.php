@@ -172,14 +172,14 @@ function initSessionUsers()
     $_SESSION['Users'].= "]";
 }
 
-function fillcalendar()
+function getDatasToFillCalendar()
 {
     global $myConnection;
     $myConnection->query(
         "SELECT LASTNAME_UTIL,
         FIRSTNAME_UTIL,
         ID_PLACE,
-        DATE_FORMAT(DATE_RESERVATION, '%Y-%M-%D'),
+        DATE_FORMAT(DATE_RESERVATION, '%Y-%M-%D') AS DATE_RESERV,
         EMAIL 
         FROM utilisateur u 
         INNER JOIN reserver r 
@@ -187,6 +187,19 @@ function fillcalendar()
         WHERE DATE_RESERVATION >= CURDATE() 
         AND DATE_RESERVATION <= DATE_ADD(DATE_RESERVATION, INTERVAL 15 DAY)");
     return $myConnection->resultset();
+}
+function initSessionUsersCalendar()
+{
+    $bufferUsersToFill = getDatasToFillCalendar();
+    $bufferUsersTab = 0;
+    $_SESSION['UsersCalendar']= "[";
+    foreach($bufferUsersToFill as $row => $link)
+    {
+        $bufferUsersTab++;
+        $_SESSION['UsersCalendar'].="{'Lastname':'".$link['LASTNAME_UTIL']."','name':'".$link['FIRSTNAME_UTIL']."','place':'".$link['ID_PLACE']."','date':'".$link['DATE_RESERV']."','email':'".$link['EMAIL']."'},";
+    }
+    $_SESSION['UsersCalendar'] = substr($_SESSION['UsersCalendar'],0,strlen($_SESSION['UsersCalendar'])-1);
+    $_SESSION['UsersCalendar'].= "]";
 }
 
 

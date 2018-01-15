@@ -41,5 +41,5 @@ window.addEventListener("load", function() {
 	sessionStorage.setItem("userMail","jean.knakes@schnitzel.com");
 	sessionStorage.setItem("userName","Jean Knäkes");
 	sessionStorage.setItem("userRole",1);
-	cells[5].innerHTML = "test";
+	//cells[5].innerHTML = "test";
 })
