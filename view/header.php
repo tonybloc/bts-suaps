@@ -36,7 +36,7 @@ if(isset($_SESSION['user']))
   					</button>
   					<div class="navbar-brand">
   						<a href="/Projet_SUAPS/index.php">
-  							<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+  							<span style="color:gray;"class="glyphicon glyphicon-home" aria-hidden="true"></span>
   						</a>
   					</div>
   				</div>  	

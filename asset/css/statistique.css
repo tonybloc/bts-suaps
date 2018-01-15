@@ -1,15 +1,16 @@
-.panel_stat
-{
-	padding : 10px;
-	background-color: #EFEFEF;
-	width : 150px;
-	min-width : 150px;
-	max-width : 200px;
+.stat_user_title{
+	font-weight:bolder;
+	text-align:center;
 }
-
+.table_stat{
+	width:100%;
+}
 .title_stat{
-	width: 100px;
-	max-width : 100px;
+	width:100px;
+}
+.separator_stat{
+	width: 20px;
 }
 .value_stat{
+	text-align:left;
 }

@@ -19,7 +19,7 @@ $title = "Golf Suaps";
 <?php 
 
 require(ROOT_FOLDER.DS.'view'.DS.'header.php');
-require(ROOT_FOLDER.DS.'view'.DS.'statView.php');
+
 
 ?>
 

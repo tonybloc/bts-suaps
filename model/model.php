@@ -50,10 +50,57 @@ function updateUser($user)
     // Si $user est bien un utilisateur alors
     if($user instanceof User)
     {
-        
+        $myConnection;
     }
 }
-
+/**
+ * 
+ * @param unknown $user
+ * @return string
+ */
+function convertUserToStringJS($user)
+{
+    $str = "{ 'id' : '". $user->getId() ."', 'email' : '". $user->getEmail() ."', 'lastName' : '".$user->getLastName()."', 'name' : '".$user->getFirstName()."', 'role' : '".$user->getRole()."'}";
+    return $str;
+}
+/**
+ * Transforme un tableau (utilisateur) en chaine
+ * @param unknown $array
+ * @return string
+ */
+function convertOneArrayUserToStringJS($array)
+{
+    $str = "'id' : ". $array['ID_UTIL'] .", 'email' : '". $array['EMAIL'] ."', 'lastName' : '".$array['LASTNAME_UTIL']."', 'name' : '".$array['FIRSTNAME_UTIL']."', 'role' : ".$array['ID_ROLE'];
+    return $str;
+}
+/**
+ * Transforme le tableau des utilisateurs dans la bdd en chaine
+ * @return string
+ */
+function convertAllUserToStringJS()
+{
+    $allUsersString = "{";
+    $allUsers = getUsersToInvite();
+    var_dump($allUsers);
+    foreach($allUsers as $array){
+        $allUsersString .= convertOneArrayUserToStringJS($array).",";
+    }
+        
+    return substr($allUsersString, 0, -1) . "}";
+}
+function initScriptJS()
+{
+    echo '<script>';
+    echo 'var arrayUser = new Array();';
+    
+    $allUsers = getUsersToInvite();
+    foreach ($allUsers as $array)
+    {
+        echo "userArray.push(". convertOneArrayUserToStringJS($array). ")";
+    }
+    echo "console.log(arrayUser);";
+    echo '</script>';
+}
 /**
  * reserve Ã  une place et Ã  une date donnÃ©e un utilisateur
  * @param unknown $userEmail
@@ -77,7 +124,17 @@ function reservation($userEmail, $idPlace, $date, $etat)
     $myConnection->execute(); 
 }
 
-
+/**
+ * DÃ©compte les ticket pour un utilisateur
+ * @param unknown $dateCourrante
+ * @param unknown $dateResrvation
+ * @param unknown $listePersonne
+ */
+function decomptePlace($email)
+{
+    $user = getUser($email);
+    var_dump($user);
+}
 /**
  * Remplie le calendrier avec les donnÃ©es contenu dans la bdd;
  */
@@ -92,12 +149,12 @@ function completeCalendar()
 function getUsersToInvite()
 {
     global $myConnection;
-    $myConnection->query("SELECT LASTNAME_UTIL,FIRSTNAME_UTIL,EMAIL,ID_ROLE FROM Utilisateur");
+    $myConnection->query("SELECT ID_UTIL,LASTNAME_UTIL,FIRSTNAME_UTIL,EMAIL,ID_ROLE FROM Utilisateur");
     return $myConnection->resultset();
 }
 /**
- * crée une variable de session user qui contient uen chaine de charachtère
- * contenant les noms, prenoms, et mail de chaque user présente dans la BDD
+ * crï¿½e une variable de session user qui contient uen chaine de charachtï¿½re
+ * contenant les noms, prenoms, et mail de chaque user prï¿½sente dans la BDD
  */
 function initSessionUsers()
 {
@@ -115,13 +172,34 @@ function initSessionUsers()
     $_SESSION['Users'].= "]";
 }
 
-function getdatereservations()
+function getDatasToFillCalendar()
 {
     global $myConnection;
-    $myConnection->query("SELECT LASTNAME_UTIL,FIRSTNAME_UTIL,EMAIL,ID_ROLE FROM Utilisateur");
+    $myConnection->query(
+        "SELECT LASTNAME_UTIL,
+        FIRSTNAME_UTIL,
+        ID_PLACE,
+        DATE_FORMAT(DATE_RESERVATION, '%Y-%M-%D') AS DATE_RESERV,
+        EMAIL 
+        FROM utilisateur u 
+        INNER JOIN reserver r 
+        ON r.ID_UTIL = u.ID_UTIL 
+        WHERE DATE_RESERVATION >= CURDATE() 
+        AND DATE_RESERVATION <= DATE_ADD(DATE_RESERVATION, INTERVAL 15 DAY)");
+    return $myConnection->resultset();
 }
-
-
-
+function initSessionUsersCalendar()
+{
+    $bufferUsersToFill = getDatasToFillCalendar();
+    $bufferUsersTab = 0;
+    $_SESSION['UsersCalendar']= "[";
+    foreach($bufferUsersToFill as $row => $link)
+    {
+        $bufferUsersTab++;
+        $_SESSION['UsersCalendar'].="{'Lastname':'".$link['LASTNAME_UTIL']."','name':'".$link['FIRSTNAME_UTIL']."','place':'".$link['ID_PLACE']."','date':'".$link['DATE_RESERV']."','email':'".$link['EMAIL']."'},";
+    }
+    $_SESSION['UsersCalendar'] = substr($_SESSION['UsersCalendar'],0,strlen($_SESSION['UsersCalendar'])-1);
+    $_SESSION['UsersCalendar'].= "]";
+}
 
 

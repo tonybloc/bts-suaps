@@ -1,4 +1,12 @@
-
+<?php 
+require_once(__DIR__ .'/../config.php');
+require_once (ROOT_FOLDER.DS.'model'.DS.'model.php');
+    
+if(!isset($_SESSION))
+{
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,30 +20,39 @@
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/navigation.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/header.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/statistique.css">
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/css/reservation.css">
      
 		
 		<!--Style Bootstrap -->
         <link rel="stylesheet" href="/Projet_SUAPS/asset/bootstrap/css/bootstrap.min.css">
         
+        <!-- Icons -->
+        <link rel="stylesheet" href="/Projet_SUAPS/asset/font-awesome/css/font-awesome.min.css">
+        
+        
 		<style>
-		  section {
-		      padding : 20px 0px;
+		  body{
+		      background-color:#EFEFEF;		      
 		  }
 		</style>
 	</head>
 	
 	<body>		
 		<?= (isset($content))?$content:null  ?>
-		<?= (isset($content_stat))?$content_stat:null ?>
-		<?= (isset($content_reserv))?$content_reserv:null ?>
 	</body>
+	<p></p>
+	
 	<!-- Script -->
-	<!--
-	 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	
-	-->
+	<?php require_once(ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'scriptCalendrier.php');?>
+		
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="/Projet_SUAPS/asset/bootstrap/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+	 -->
+	<script src="/Projet_SUAPS/asset/js/fill.js"></script>
+	<script src="/Projet_SUAPS/asset/js/app.js"></script>
+	<script src="/Projet_SUAPS/asset/js/validationForm.js"></script>
 
-	<script type="/Projet_SUAPS//asset/js/validation_inscription.js"></script>
-	
 </html>
