@@ -83,6 +83,12 @@ function initSessionUsers(){
     }
 }
 
+function fillCalendar()
+{
+    global $myConnection;
+    $myCoonnection->query();
+    
+}
 
 
 
