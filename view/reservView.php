@@ -33,6 +33,7 @@ require_once (ROOT_FOLDER.DS.'view'.DS.'header.php');
 		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 panel-left">
 			<?php require_once (ROOT_FOLDER.DS.'view'.DS.'statView.php');?>
 			<?php
+			
 			if(isset($_SESSION['user'])){
 			    if(unserialize($_SESSION['user'])->getRole() == ADMIN)
 			    {
@@ -44,8 +45,9 @@ require_once (ROOT_FOLDER.DS.'view'.DS.'header.php');
 		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 panel-right">
 			<div class="panel_reservation">
             	<h1 class="reserv_title"> <?php echo 'Planning : '.$calendar1->getMonthYearToString();?> </h1>
-            	<?php echo $calendar1->_generate(); ?>
-            	<?php require_once (ROOT_FOLDER.DS.'view'.DS.'modalReservation.php');?>
+            	<?php echo $calendar1->_generate(); 
+            	echo var_dump(fillCalendar());
+            	require_once (ROOT_FOLDER.DS.'view'.DS.'modalReservation.php');?>
             </div>
 		</div>
 	</div>	
