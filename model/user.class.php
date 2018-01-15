@@ -87,8 +87,8 @@ class User
     {
         // 1 : Administrateur
         // 2 : Membre
-        // 3 : Adhérant
-        // 4 : invité
+        // 4 : Adhérant
+        // 3 : invité
         
         return $this->_role;
     }

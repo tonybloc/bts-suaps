@@ -1,5 +1,4 @@
-<main>
-  <section>
+<div>
     <div class="setup-wrapper">
       <!-- en-tête -->
       <div class="account_header">
@@ -52,5 +51,4 @@
         </form>
       </div>
     </div>
-  </section>
-<main>
+</div>

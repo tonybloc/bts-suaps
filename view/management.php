@@ -6,7 +6,7 @@
     	<ul class="nav nav-pills nav-stacked">
     		<li><a href="#">Statisitique Globals</a></li>
     		<li><a href="#">Cotisation des Membres</a></li>
-    		<li><a href="#">Inscription des utilisateurs</a></li>
+    		<li><a href="/Projet_SUAPS/view/inscription.php">Inscription des utilisateurs</a></li>
     		<li><a href="#">Tickets</a></li>
     	</ul>
     </div>

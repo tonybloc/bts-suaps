@@ -59,7 +59,7 @@ class Calendar
         /*-- GENERATION DU CALENDRIER --*/
         
         echo "<div id='content'>";
-        echo "<table class='calendrier' >";
+        echo "<table class='calendrier' id='calendrier' >";
         
         $dayTemp = $this->day;
         $tempNbL= 1;
@@ -100,7 +100,7 @@ class Calendar
             // Première cellule : Mois acctuel
             if ($i == 1)
             {
-                    echo "<thead><tr><td class='cel cel_month'></td>";
+                    echo "<thead><tr><th class='cel cel_month'></th>";
             }
             // Cellule date
             else if ($i%5==1 && $i > 1)

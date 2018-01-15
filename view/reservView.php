@@ -45,6 +45,7 @@ require_once (ROOT_FOLDER.DS.'view'.DS.'header.php');
 			<div class="panel_reservation">
             	<h1 class="reserv_title"> <?php echo 'Planning : '.$calendar1->getMonthYearToString();?> </h1>
             	<?php echo $calendar1->_generate(); ?>
+            	<?php require_once (ROOT_FOLDER.DS.'view'.DS.'modalReservation.php');?>
             </div>
 		</div>
 	</div>	
@@ -52,6 +53,6 @@ require_once (ROOT_FOLDER.DS.'view'.DS.'header.php');
 
 
 <?php 
-$content_reserv = ob_get_clean(); 
+$content = ob_get_clean(); 
 require(ROOT_FOLDER.DS.'view'.DS.'template.php');
 ?>

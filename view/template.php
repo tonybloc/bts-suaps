@@ -1,4 +1,12 @@
-
+<?php 
+require_once(__DIR__ .'/../config.php');
+require_once (ROOT_FOLDER.DS.'model'.DS.'model.php');
+    
+if(!isset($_SESSION))
+{
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -31,16 +39,15 @@
 	
 	<body>		
 		<?= (isset($content))?$content:null  ?>
-		<?= (isset($content_stat))?$content_stat:null ?>
-		<?= (isset($content_reserv))?$content_reserv:null ?>
 	</body>
+	<p></p>
+	
 	<!-- Script -->
-	<!--
-	 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	
-	-->
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="/Projet_SUAPS/asset/bootstrap/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<script src="/Projet_SUAPS/asset/js/fill.js"></script>
+	<script src="/Projet_SUAPS/asset/js/app.js"></script>
 
-	<script type="/Projet_SUAPS//asset/js/validation_inscription.js"></script>
-	
 </html>
