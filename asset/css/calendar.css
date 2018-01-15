@@ -40,8 +40,9 @@
 .cel_date{
 	
 }
-.cel_reserv{
-	
+.cel_reserv:hover{
+	background-color: #d9edf7 !important;
+	cursor: pointer;
 }
 .cel_weekend{
 	background-color:#EFEFEF;

@@ -23,7 +23,7 @@ ob_start();
 		<div class="test">
 			<h1>Connexion Suaps Golf</h1>
 			</br>
-        	<form class="form-horizontal" method="post" action="/Projet_SUAPS/controler/connexion.php">            	
+        	<form id="formConnection"class="form-horizontal" method="post" action="/Projet_SUAPS/controler/connexion.php">            	
             	<div class="form-group">
             		<?php 
             		  echo $form->label("Email","col-sm-2 control-label","input_email");

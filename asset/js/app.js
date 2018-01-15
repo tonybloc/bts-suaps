@@ -32,7 +32,7 @@ window.addEventListener("load", function() {
 		if (this.innerHTML != "") {
 			if (userRole == 1) {
 				str = "Voulez-vous désinscrire cette personne ?";
-
+				
 				action = 1;
 				console.log(action)
 			} else {
@@ -105,6 +105,7 @@ window.addEventListener("load", function() {
 			console.log("nothing");
 		} else if (action == 1) {
 			console.log("unbook")
+			console.log(this);
 		} else if (action == 2.1) {
 			console.log("book self");
 		} else if (action == 2.2) {

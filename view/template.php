@@ -44,10 +44,15 @@ if(!isset($_SESSION))
 	
 	<!-- Script -->
 	
-	
+	<?php require_once(ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'scriptCalendrier.php');?>
+		
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="/Projet_SUAPS/asset/bootstrap/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<!-- 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+	 -->
 	<script src="/Projet_SUAPS/asset/js/fill.js"></script>
 	<script src="/Projet_SUAPS/asset/js/app.js"></script>
+	<script src="/Projet_SUAPS/asset/js/validationForm.js"></script>
 
 </html>
