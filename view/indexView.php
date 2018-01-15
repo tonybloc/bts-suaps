@@ -6,8 +6,9 @@ if(!isset($_SESSION))
 {
     session_start();
 }
+?>
 
-
+<?php
 $title = "Golf Suaps"; 
 
 
@@ -18,7 +19,7 @@ $title = "Golf Suaps";
 <?php 
 
 require(ROOT_FOLDER.DS.'view'.DS.'header.php');
-require(ROOT_FOLDER.DS.'view'.DS.'statView.php');
+
 
 ?>
 
