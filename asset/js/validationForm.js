@@ -40,7 +40,4 @@ $("#formInscription").validate({
 	errorElement:'div',
 	
 });
-
-
-
 // $("#formConnection").validate();

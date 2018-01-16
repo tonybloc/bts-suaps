@@ -95,6 +95,7 @@ class Calendar
                 }
             }
             
+
             $this->dayWeek = jddayofweek($this->dateFormatter);
             
             // Première cellule : Mois acctuel
@@ -164,7 +165,6 @@ class Calendar
         echo "</table>";
         echo "</div>";
     }
-    
     /**
      * @return number
      */
