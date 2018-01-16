@@ -109,11 +109,12 @@ class User
                 return "Membre";
                 break;
             case 3:
-                return "Adhérant";
-                break;
-            case 4:
                 return "Invité";
                 break;
+            case 4:
+                return "Adhérant";
+                break;
+            
             default:
                 return null;
         }

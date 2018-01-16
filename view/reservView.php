@@ -49,7 +49,8 @@ require_once (ROOT_FOLDER.DS.'view'.DS.'header.php');
             	initSessionUsersCalendar();
             	
             	require_once (ROOT_FOLDER.DS.'view'.DS.'modalReservation.php');
-                require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'fill_calendar.php');?>
+            	require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'fill_calendar.php');
+            	?>
             </div>
 		</div>
 	</div>	

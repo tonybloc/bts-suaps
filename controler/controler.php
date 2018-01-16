@@ -17,6 +17,24 @@ if(!isset($_SESSION))
 }
 
 
+// Reservation d'un participant
+if(isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userid']))
+{
+    
+    if(!empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userid']))
+    {
+        $place = htmlspecialchars($_GET['place']);
+        $date = htmlspecialchars($_GET['date']);
+        $userid = htmlspecialchars($_GET['userid']);
+        
+        reservation($userid, $place, $date, null);
+        initSessionUsersCalendar();
+        header("location: /Projet_SUAPS/view/reservView.php");
+    }
+}
+
+
+
 /**
  * Methode de test (pour l'instant)
  */
