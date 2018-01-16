@@ -34,6 +34,9 @@ if(!isset($_SESSION))
 		  body{
 		      background-color:#EFEFEF;		      
 		  }
+		  .error{
+		      color:red;
+		  }
 		</style>
 	</head>
 	
@@ -48,11 +51,10 @@ if(!isset($_SESSION))
 		
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="/Projet_SUAPS/asset/bootstrap/js/bootstrap.min.js" crossorigin="anonymous"></script>
-	<!-- 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-	 -->
-	<script src="/Projet_SUAPS/asset/js/fill.js"></script>
-	<script src="/Projet_SUAPS/asset/js/app.js"></script>
-	
+		 
+	<script src="/Projet_SUAPS/asset/js/jquery.validate.js"></script>
+	<script src="/Projet_SUAPS/asset/js/validationForm.js"></script>
+	<?php require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'app.php');?>
+
 
 </html>

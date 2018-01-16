@@ -7,7 +7,6 @@
  *  Définit les actions à faire ...
  */
 require_once(__DIR__ .'/../config.php');
-require_once(ROOT_FOLDER . DS .'model'. DS .'model.php');
 require_once(ROOT_FOLDER . DS .'model'. DS .'connect.class.php');
 require_once(ROOT_FOLDER . DS .'model'. DS .'user.class.php');
 
@@ -44,14 +43,18 @@ function getUser($email)
 }
 
 
-function updateUser($user)
+function inscritNewUser($email, $nom, $prenom, $password)
 {
     global $myConnection;
-    // Si $user est bien un utilisateur alors
-    if($user instanceof User)
-    {
-        $myConnection;
-    }
+    
+    $myConnection->query("INSERT INTO utilisateur(`ID_ROLE`, `LASTNAME_UTIL`, `FIRSTNAME_UTIL`, `PASSWORD_UTIL`, `EMAIL`, `NB_TICKETS_SEMAINE`, `NB_TICKETS_WEEKEND`, `NB_TICKETS_TOTAL_UTIL`, `NB_ANNULATION_TOTAL`) 
+                          VALUES (2,:lastName,:firstName,:password,:email,0,0,0,0)");
+    $myConnection->bind(":lastName",$prenom, PDO::PARAM_STR);
+    $myConnection->bind(":firstName",$nom, PDO::PARAM_STR);
+    $myConnection->bind(":password",$password, PDO::PARAM_STR);
+    $myConnection->bind("::email",$email, PDO::PARAM_STR);
+    
+    $myConnection->execute();
 }
 /**
  * 
@@ -60,7 +63,7 @@ function updateUser($user)
  */
 function convertUserToStringJS($user)
 {
-    $str = "{ 'id' : '". $user->getId() ."', 'email' : '". $user->getEmail() ."', 'lastName' : '".$user->getLastName()."', 'name' : '".$user->getFirstName()."', 'role' : '".$user->getRole()."'}";
+    $str = "'id': ". $user->getId() .", 'email': '". $user->getEmail() ."', 'lastName': '".$user->getLastName()."', 'name': '".$user->getFirstName()."', 'role': ".$user->getRole();
     return $str;
 }
 /**
@@ -101,20 +104,19 @@ function initScriptJS()
     echo "console.log(arrayUser);";
     echo '</script>';
 }
+
+
 /**
- * reserve à une place et à une date donnée un utilisateur
- * @param unknown $userEmail
+ * reservation d'une place 
+ * @param unknown $userId
  * @param unknown $place
  * @param unknown $date (format : YYYY-MM-dd)
  * @param unknown $etat (0: vide,  1: reserver, 2:inviter, 3:annuler) 
  */
-function reservation($userEmail, $idPlace, $date, $etat)
+function reservation($userId, $idPlace, $date, $etat)
 {
     global $myConnection;
-    $myUser = getUser($userEmail);
     
-    $userId = $myUser['ID_UTIL'];
-        
     $myConnection->query('INSERT INTO reserver(ID_UTIL, ID_PLACE, DATE_RESERVATION, ETAT) VALUES (:idUser, :idPlace, :dateReserv, :etat)');
     $myConnection->bind(':idUser', $userId, PDO::PARAM_INT);
     $myConnection->bind(':idPlace', $idPlace, PDO::PARAM_INT);
@@ -123,7 +125,11 @@ function reservation($userEmail, $idPlace, $date, $etat)
     
     $myConnection->execute(); 
 }
-
+function annulerReservation()
+{
+    global $myConnection;
+    
+}
 /**
  * Décompte les ticket pour un utilisateur
  * @param unknown $dateCourrante
@@ -162,14 +168,13 @@ function initSessionUsers()
     
     $bufferTabUsers = getUsersToInvite();
     $bufferusers = 0;
-    $_SESSION['Users']= "[";
+    $_SESSION['Users']= "";
     foreach($bufferTabUsers as $row => $link)
     {
         $bufferusers++;
-        $_SESSION['Users'].="{'name':'".$link['FIRSTNAME_UTIL']."','lastname':'".$link['LASTNAME_UTIL']."','email':'".$link['EMAIL']."'},";
+        $_SESSION['Users'].="{'id':".$link['ID_UTIL'].",'name':'".$link['FIRSTNAME_UTIL']."','lastname':'".$link['LASTNAME_UTIL']."','email':'".$link['EMAIL']."','id_role':".$link['ID_ROLE']."},";
     }
-    $_SESSION['Users'] = substr($_SESSION['Users'],0,strlen($_SESSION['Users'])-1);
-    $_SESSION['Users'].= "]";
+    $_SESSION['Users'] = substr($_SESSION['Users'],0,strlen($_SESSION['Users'])-1);   
 }
 
 function getDatasToFillCalendar()

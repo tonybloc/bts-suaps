@@ -7,16 +7,33 @@ if(!isset($_SESSION))
     session_start();
 }
 
-if(isset($_SESSION['user']))
+
+if(isset($_SESSION['Users']) && isset($_SESSION['user']))
 {
-    var_dump($expression);
+   
 ?>
 
+<script>
+
+	// Liste des utilisateurs
+	var users = new Array(<?= $_SESSION['Users']?>);
+	
+	// Utilisateur connecté
+	var userConnected = {<?= convertUserToStringJS(unserialize($_SESSION['user'])) ?>};
+	
+	
+	
+	sessionStorage.setItem("users", JSON.stringify(users));
+	sessionStorage.setItem("userMail", userConnected['email']);
+	sessionStorage.setItem("userName", userConnected['name'] + ' ' + userConnected['lastName']);
+	sessionStorage.setItem("userRole", userConnected['role']);
+	sessionStorage.setItem("userId", userConnected['id']);
+	
+
+</script>
 
 <?php
 }
 
 ?>
-<script>
-	console.log('hello');
-</script>
+
