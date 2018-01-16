@@ -15,7 +15,6 @@ require_once(ROOT_FOLDER . DS .'model'. DS .'user.class.php');
 // Variables de connexion commune à toute les méthodes
 $myConnection = new Connection();
 
-
 /**
  * Recupère les informations d'un utilisateur dans la bdd 
  * @param string $email
@@ -144,7 +143,7 @@ function nbReservationInferieurA2($userId)
  * @param unknown $date (format : YYYY-MM-dd)
  * @param unknown $etat (0: vide,  1: reserver, 2:inviter, 3:annuler) 
  */
-function reservation($userId, $idPlace, $date, $etat)
+function reservation($userId, $idPlace, $date, $etat=null)
 {
     global $myConnection;
     
@@ -153,7 +152,7 @@ function reservation($userId, $idPlace, $date, $etat)
     $myConnection->bind(':idPlace', $idPlace, PDO::PARAM_INT);
     $myConnection->bind(':dateReserv', $date, PDO::PARAM_STR);
     $myConnection->bind(':etat', $etat, PDO::PARAM_INT);
-    
+    $myConnection->debugDumpParams();
     $myConnection->execute(); 
 }
 function annulerReservation($date,$userId)

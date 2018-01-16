@@ -114,6 +114,7 @@ class User
             case 4:
                 return "Adhérant";
                 break;
+            
             default:
                 return null;
         }

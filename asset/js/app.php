@@ -128,22 +128,10 @@ $("#modal-validate").on("click", function() {
 		
 	} else if (action == 2.1) {
 		console.log("book self");
-		document.location = "/Projet_SUAPS/view/reservView.php?place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
-		<?php 
-		if(isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userid']))
-		{
-		    if(!empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userid']))
-		    {
-		        $place = htmlspecialchars($_GET['place']);
-		        $date = htmlspecialchars($_GET['date']);
-		        $userid = htmlspecialchars($_GET['userid']);
-		        reservation($userid, $place, $date, null);
-		        initSessionUsersCalendar();
-		    }
-		}
-		?>
-		booking(place, userId, dateToCel);
-		console.log("test");
+		document.location = "/Projet_SUAPS/controler/controler.php?mode=reservation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
+		
+		console.log("test");			
+		
 	} else if (action == 2.2) {
 		console.log("book else");
 	} else if (action == 2.3) {
@@ -194,7 +182,18 @@ function cancelBooking(place, userId, date)
 			}
 		}
 		});
-}			
+}
+
+function extractUrlParmas(){
+	var table = location.search.substring(1).split('&');
+	var f = [];
+	for (var i=0; i<table.length; i++)
+	{
+			var x = table[i].split('=');
+			f[x[0]]=x[1];
+	}
+	return f;
+}
 </script>
 <?php
 require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'fill_calendar.php');
