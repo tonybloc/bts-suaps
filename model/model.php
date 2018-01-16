@@ -179,7 +179,7 @@ function getDatasToFillCalendar()
         "SELECT LASTNAME_UTIL,
         FIRSTNAME_UTIL,
         ID_PLACE,
-        DATE_FORMAT(DATE_RESERVATION, '%Y-%M-%D') AS DATE_RESERV,
+        DATE_RESERVATION AS DATE_RESERV,
         EMAIL 
         FROM utilisateur u 
         INNER JOIN reserver r 
@@ -205,5 +205,3 @@ function initSessionUsersCalendar()
         $_SESSION['UsersCalendar'].= "]";
     }
 }
-
-
