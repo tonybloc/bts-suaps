@@ -109,10 +109,10 @@ class User
                 return "Membre";
                 break;
             case 3:
-                return "Adhérant";
+                return "Invité";
                 break;
             case 4:
-                return "Invité";
+                return "Adhérant";
                 break;
             default:
                 return null;

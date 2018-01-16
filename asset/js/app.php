@@ -137,14 +137,13 @@ $("#modal-validate").on("click", function() {
 		        $place = htmlspecialchars($_GET['place']);
 		        $date = htmlspecialchars($_GET['date']);
 		        $userid = htmlspecialchars($_GET['userid']);
-		        
 		        reservation($userid, $place, $date, null);
+		        initSessionUsersCalendar();
 		    }
 		}
 		?>
 		booking(place, userId, dateToCel);
-		console.log("test");			
-		
+		console.log("test");
 	} else if (action == 2.2) {
 		console.log("book else");
 	} else if (action == 2.3) {
@@ -197,6 +196,7 @@ function cancelBooking(place, userId, date)
 		});
 }			
 </script>
-<?php 
+<?php
+require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'fill_calendar.php');
 }
 ?>
