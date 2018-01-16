@@ -1,0 +1,50 @@
+.pres-row {
+	margin-top: 2em;
+	overflow: hidden;
+	min-height: 177px;
+}
+
+.pres-text {
+	height: 177px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	color: #333;
+}
+
+.pres-text > h4 {
+	line-height: 2em;
+}
+
+.pres-img {
+	margin-bottom: -99999px;
+	padding-bottom: 177px;
+	height: 177px;
+	
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.jumbotron {
+	margin-top: 2em;
+	border-radius: 0 !important;
+	text-align: center;
+}
+
+.color-green {
+	background-color: #62AC5B;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.color-white {
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.a-right {
+	text-align: right;
+}

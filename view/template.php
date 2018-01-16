@@ -21,7 +21,7 @@ if(!isset($_SESSION))
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/header.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/statistique.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/reservation.css">
-     
+     	<link rel="stylesheet" href="/Projet_SUAPS/asset/css/home.css">
 		
 		<!--Style Bootstrap -->
         <link rel="stylesheet" href="/Projet_SUAPS/asset/bootstrap/css/bootstrap.min.css">

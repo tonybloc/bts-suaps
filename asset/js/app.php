@@ -6,6 +6,7 @@ require_once(ROOT_FOLDER . DS .'model'. DS .'model.php');
 <?php 
 if(isset($_SESSION['user']))
 {
+   
 ?> 
 
 <script>
@@ -160,7 +161,17 @@ $("#modal-validate").on("click", function() {
 	else if (action == 2.2) 
 	{
 		console.log("book else");
-		document.location = "/Projet_SUAPS/controler/controler.php?mode=reservation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
+
+		var emailInvite = $("#modal-input-else").text().split("(")[1].slice(0, -1);
+		var nomInvite = $("#modal-input-else").text().split(" ")[1];
+		var prenomInvite = $("#modal-input-else").text().split(" ")[0];
+		console.log(emailInvite);
+		console.log(nomInvite);
+		console.log(prenomInvite);
+		
+		
+		document.location = "/Projet_SUAPS/controler/controler.php?mode=invitation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?> +"&userinviteemail="+emailInvite;
+		
 	} else if (action == 2.3) {
 
 		console.log("invite else");

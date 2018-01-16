@@ -38,11 +38,21 @@
 	
 }
 .cel_date{
-	
+	padding:5px;
 }
 .cel_reserv{
 	font-weight : normal;
 	font-size : 16px;
+	
+	padding:10px;
+}
+.cel_value_name{
+	margin:0px;
+}
+.cel_value_email{
+	color:gray;
+	font-size:10px;	
+	margin:0px;
 }
 .cel_reserv:hover{
 	background-color: #d9edf7 !important;

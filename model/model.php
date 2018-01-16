@@ -68,6 +68,91 @@ function getnbParcours($idUser)
     $nbParcours = $myConnection->single();
     return $nbParcours['NB_TICKETS_TOTAL_UTIL'];
 }
+
+function addTicketWeekend($userId, $nbTickets)
+{
+    global $myConnection;
+    
+    $myConnection->query("UPDATE utilisateur SET NB_TICKETS_WEEKEND = NB_TICKETS_WEEKEND + :nbTickets WHERE ID_UTIL = :userId");
+    $myConnection->bind(":userId",$userId, PDO::PARAM_INT);
+    $myConnection->bind("nbTickets",$nbTickets, PDO::PARAM_INT);
+    
+    $myConnection->execute();
+}
+function supTicketWeekend($userId)
+{
+    global $myConnection;
+    
+    $myConnection->query("UPDATE utilisateur SET NB_TICKETS_WEEKEND = NB_TICKETS_WEEKEND-1 WHERE ID_UTIL = :userId");
+    $myConnection->bind(":userId",$userId, PDO::PARAM_INT);
+    
+    $myConnection->execute();
+}
+function addTicketSemaine($userId, $nbTickets)
+{
+    global $myConnection;
+    
+    $myConnection->query("UPDATE utilisateur SET NB_TICKETS_SEMAINE = NB_TICKETS_SEMAINE + :nbTickets WHERE ID_UTIL = :userId");
+    $myConnection->bind(":userId",$userId, PDO::PARAM_INT);
+    $myConnection->bind("nbTickets",$nbTickets, PDO::PARAM_INT);
+    
+    $myConnection->execute();
+}
+function supTicketSemaine($userId)
+{
+    global $myConnection;
+    
+    $myConnection->query("UPDATE utilisateur SET NB_TICKETS_SEMAINE = NB_TICKETS_SEMAINE-1 WHERE ID_UTIL = :userId");
+    $myConnection->bind(":userId",$userId, PDO::PARAM_INT);
+    
+    $myConnection->execute();
+}
+function supNbParcours($userId)
+{
+    global $myConnection;
+    
+    $myConnection->query("UPDATE utilisateur SET NB_TICKETS_TOTAL_UTIL = NB_TICKETS_TOTAL_UTIL-1 WHERE ID_UTIL = :userId");
+    $myConnection->bind(":userId", $userId, PDO::PARAM_INT);
+    $myConnection->execute();
+}
+
+function addNbParcours($userId)
+{
+    global $myConnection;
+    
+    $myConnection->query("UPDATE utilisateur SET NB_TICKETS_TOTAL_UTIL = NB_TICKETS_TOTAL_UTIL+1 WHERE ID_UTIL = :userId");
+    $myConnection->bind(":userId", $userId, PDO::PARAM_INT);
+    $myConnection->execute();
+}
+function getNbAnnulation($userId)
+{
+    global $myConnection;
+    $myConnection->query("SELECT NB_ANNULATION_TOTAL FROM utilisateur WHERE ID_UTIL = :idUtil");
+    $myConnection->bind(":idUtil",$userId, PDO::PARAM_INT);
+    $nbAnnulation = $myConnection->single();
+    return $nbAnnulation['NB_TICKETS_TOTAL_UTIL'];
+}
+
+/*décrement le nombre d'annulation d'un utilisateur*/
+function supAnnulation($userId)
+{
+    global $myConnection;
+   
+    $myConnection->query("UPDATE utilisateur SET NB_ANNULATION_TOTAL = NB_ANNULATION_TOTAL-1 WHERE ID_UTIL = :userId");
+    $myConnection->bind(":userId", $userId, PDO::PARAM_INT);
+    $myConnection->execute();
+}
+
+/*increment le nombre d'annulation d'un utilisateur*/
+function addAnnulation($userId)
+{
+    global $myConnection;
+    
+    $myConnection->query("UPDATE utilisateur SET NB_ANNULATION_TOTAL = NB_ANNULATION_TOTAL+1 WHERE ID_UTIL = :userId");
+    $myConnection->bind(":userId", $userId, PDO::PARAM_INT);
+    $myConnection->execute();
+}
+
 function inscritNewUser($email, $nom, $prenom, $password)
 {
     global $myConnection;
@@ -130,11 +215,27 @@ function initScriptJS()
     echo '</script>';
 }
 
-function nbReservationInferieurA2($userId)
+function nbReservationInferieurA2($email)
 {
     global $myConnection;
     
-    
+    $user = getUser($email);
+
+    $userId = $user['ID_UTIL'];
+    var_dump($userId);
+    /*
+    $myConnection->query("IF
+                (
+                    (
+                    SELECT COUNT(*) 
+                    FROM reserv 
+                    WHERE ID_UTIL = :idUtil AND DATE_RESERVATION >= NOW() AND DATE_RESERVATION <= DATE_ADD(NOW(), INTERVAL 15 DAY) )
+                    ) <=2
+                 ) , SELECT
+                
+                
+                 ")
+    */
 }
 /**
  * reservation d'une place 
