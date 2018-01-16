@@ -128,7 +128,8 @@ $("#modal-validate").on("click", function() {
 		
 	} else if (action == 2.1) {
 		console.log("book self");
-		document.location = "/Projet_SUAPS/controler/controler.php?mode=reservation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;		
+		document.location = "/Projet_SUAPS/controler/controler.php?mode=reservation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
+		
 		console.log("test");			
 		
 	} else if (action == 2.2) {
@@ -195,6 +196,7 @@ function extractUrlParmas(){
 	return f;
 }
 </script>
-<?php 
+<?php
+require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'fill_calendar.php');
 }
 ?>

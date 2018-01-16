@@ -164,6 +164,9 @@ class Calendar
         
         echo "</table>";
         echo "</div>";
+        //on remplis le tableau dès sa génération avec les noms des utilisateurs qui on reservés 
+        initSessionUsersCalendar();
+        require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'fill_calendar.php');
     }
     /**
      * @return number

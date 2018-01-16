@@ -7,4 +7,4 @@
     	var id = ("j"+bString.place+"-"+date);
     	document.getElementById(id).innerHTML = bString.name + " " + bString.Lastname;
     }
-</script>; 
+</script>
