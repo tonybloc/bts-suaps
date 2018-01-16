@@ -45,25 +45,41 @@ $("#calendrier").on("click", "td", function(e) {
 	$("#modal-booking").hide();
 	$("#modal-input-else").prop("disabled", true);
 	
-	if (this.innerHTML != "") {
-		if (userRole == 1) {
+	if (this.innerHTML != "") 
+	{
+		if (userRole == 1) 
+		{
 			str = "Voulez-vous désinscrire cette personne ?";
-			
 			action = 1;
 			console.log(action)
-		} else {
+		}
+		else if(this.innerHTML.indexOf(userMail)!== -1)
+		{
+			console.log("bite ")
+			str = "Voulez-vous vous désinscrire ?";
+			action = 1;
+			console.log(action)
+		}
+		else 
+		{
 			str = "Une personne est déjà inscrite à cette place.";
-
 			$("#modal-validate").hide();
 		}
-	} else {
-		if (userRole == 1 || userRole == 4) {
+	} 
+	else 
+	{
+		if (userRole == 1 || userRole == 4) 
+		{
 			str = "Qui voulez inscrire le " + date + " en tant que joueur " + player + " ?";
 
 			$("#modal-booking").show();
-		} else if (userRole == 2) {
+		} 
+		else if (userRole == 2) 
+		{
 			str = "Vous devez mettre à jour votre carte de membre pour pouvoir vous inscrire.";
-		} else if (userRole == 3) {
+		} 
+		else if (userRole == 3) 
+		{
 			str = "Vous devez être adhérant pour pouvoir vous inscrire.";
 		}
 	}
@@ -116,74 +132,44 @@ $("#modal-input-else").on("click", function() {
 	}
 })
 
+/**
+ 	effectue une action en fonction 
+ 	de l'action effectuée lors
+ 	du click sur le bouton valider
+ */
 $("#modal-validate").on("click", function() {
 	console.log(action);
 	var place = sessionStorage.getItem("place");
 	var dateToCel = sessionStorage.getItem("date");
 	
-	if (action == 0) {
+	if (action == 0) 
+	{
 		console.log("nothing");
-	} else if (action == 1) {
+	} 
+	else if (action == 1) 
+	{
 		console.log("unbook")
-		
-	} else if (action == 2.1) {
+		document.location = "/Projet_SUAPS/controler/controler.php?mode=annulation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
+	} 
+	else if (action == 2.1) 
+	{
 		console.log("book self");
 		document.location = "/Projet_SUAPS/controler/controler.php?mode=reservation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
 		
-		console.log("test");			
-		
-	} else if (action == 2.2) {
+	}
+	else if (action == 2.2) 
+	{
 		console.log("book else");
-	} else if (action == 2.3) {
+	} 
+	else if (action == 2.3) 
+	{
 		console.log("invite else");
 	}
 })
 
-/* FONCTION AJAX */
-function booking(place, userId, date)
-{
-	$.ajax({
-		type: "post",
-		url: "/../../model/model.php",
-		data: 
-			{
-			"mode": "reservation",
-			 "place": place,
-			 "userId": userId,
-			 "date": date
-			},
-		success: function(data)
-		{
-			if(data === "success")
-			{
-				console.log("ajax success")
-			}
-		}
-		});
-}
-
-function cancelBooking(place, userId, date)
-{
-	$.ajax({
-		type: "post",
-		url: "/../../model/model.php",
-		data: 
-			{
-			"mode": "annulation",
-			 "place": place,
-			 "userId": userId,
-			 "date": date
-			},
-		success: function(data)
-		{
-			if(data === "success")
-			{
-				console.log("ajax success")
-			}
-		}
-		});
-}
-
+/*
+ * recuperer en javascript les données de l'URL
+ */
 function extractUrlParmas(){
 	var table = location.search.substring(1).split('&');
 	var f = [];

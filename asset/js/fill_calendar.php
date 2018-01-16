@@ -5,6 +5,7 @@
     	var bString = usersTab[bufferTab1];
     	var date = bString.date
     	var id = ("j"+bString.place+"-"+date);
-    	document.getElementById(id).innerHTML = bString.name + " " + bString.Lastname;
+    	document.getElementById(id).innerHTML ="<p>"+ bString.name + " " + bString.Lastname + " <span>" + bString.email +"</span>"+"</p>";
+
     }
 </script>
