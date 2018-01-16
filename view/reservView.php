@@ -1,4 +1,3 @@
-
 <?php 
 
 $title = "Réservation";
@@ -14,6 +13,7 @@ if(!isset($_SESSION))
 }
 
 initSessionUsers();
+
 $calendar1 = new Calendar(date("d"),date("m"),date("Y"));
 
 
