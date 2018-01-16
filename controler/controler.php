@@ -18,11 +18,12 @@ if(!isset($_SESSION))
 
 
 // Reservation d'un participant
-if(isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userid']))
+if(isset($_GET['mode']) && isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userid']))
 {
     
-    if(!empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userid']))
+    if(!empty($_GET['mode']) && !empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userid']))
     {
+        $mode = htmlspecialchars($_GET['mode']);
         $place = htmlspecialchars($_GET['place']);
         $date = htmlspecialchars($_GET['date']);
         $userid = htmlspecialchars($_GET['userid']);

@@ -128,31 +128,12 @@ $("#modal-validate").on("click", function() {
 		
 	} else if (action == 2.1) {
 		console.log("book self");
-		document.location = "/Projet_SUAPS/controler/controler.php?mode=reservation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
-		
-<?php 
-
-/*
-				if(isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userid']))
-				{
-				    
-				    if(!empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userid']))
-				    {
-				        $place = htmlspecialchars($_GET['place']);
-				        $date = htmlspecialchars($_GET['date']);
-				        $userid = htmlspecialchars($_GET['userid']);
-				        
-				        reservation($userid, $place, $date, null);
-				        initSessionUsersCalendar();
-				    }
-				}
-				*/
-		?>
-		
+		document.location = "/Projet_SUAPS/controler/controler.php?mode=reservation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;		
 		console.log("test");			
 		
 	} else if (action == 2.2) {
 		console.log("book else");
+		document.location = "/Projet_SUAPS/controler/controler.php?mode=reservation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
 	} else if (action == 2.3) {
 		console.log("invite else");
 	}
