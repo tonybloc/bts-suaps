@@ -194,6 +194,7 @@ function getDatasToFillCalendar()
     if ($myConnection!=null)
         return $myConnection->resultset();
 }
+
 function initSessionUsersCalendar()
 {
     $bufferUsersToFill = getDatasToFillCalendar();
