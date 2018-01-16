@@ -3,6 +3,11 @@ require_once(__DIR__ .'/../../config.php');
 require_once(ROOT_FOLDER . DS .'model'. DS .'model.php');
 ?>
 
+<?php 
+if(isset($_SESSION['user']))
+{
+?> 
+
 <script>
 
 var cells = document.getElementsByTagName("td");
@@ -114,7 +119,7 @@ $("#modal-input-else").on("click", function() {
 $("#modal-validate").on("click", function() {
 	console.log(action);
 	var place = sessionStorage.getItem("place");
-	var dateToCel = sessionStorage.getItem("dateToCel");
+	var dateToCel = sessionStorage.getItem("date");
 	
 	if (action == 0) {
 		console.log("nothing");
@@ -123,6 +128,20 @@ $("#modal-validate").on("click", function() {
 		
 	} else if (action == 2.1) {
 		console.log("book self");
+		document.location = "/Projet_SUAPS/view/reservView.php?place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
+		<?php 
+		if(isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userid']))
+		{
+		    if(!empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userid']))
+		    {
+		        $place = htmlspecialchars($_GET['place']);
+		        $date = htmlspecialchars($_GET['date']);
+		        $userid = htmlspecialchars($_GET['userid']);
+		        
+		        reservation($userid, $place, $date, null);
+		    }
+		}
+		?>
 		booking(place, userId, dateToCel);
 		console.log("test");			
 		
@@ -178,3 +197,6 @@ function cancelBooking(place, userId, date)
 		});
 }			
 </script>
+<?php 
+}
+?>

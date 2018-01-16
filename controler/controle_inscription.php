@@ -12,25 +12,26 @@ if( empty($_POST['inscriptionFirsName']) && empty($_POST['inscriptionLastName'])
         empty($_POST['inscriptionEmail']) && empty($_POST['inscriptionPwd']) &&
             empty($_POST['inscriptionPwdComfirm']) )
 {
+    $_SESSION['message_inscription_error'] = "";
     header("/Projet/view/inscription.php");
 }
 else
 {
 
     $email = htmlspecialchars($_POST['inscriptionEmail']);
-    $firstName = strtoupper(htmlspecialchars($_POST['inscriptionEmail']));
-    $lastName = htmlspecialchars($_POST['inscriptionEmail']);
-    $password = htmlspecialchars($_POST['inscriptionEmail']);
-    $passwordConfirm = htmlspecialchars($_POST['inscriptionEmail']);
+    $firstName = strtoupper(htmlspecialchars($_POST['inscriptionFirsName']));
+    $lastName = htmlspecialchars($_POST['inscriptionLastName']);
+    $password = htmlspecialchars($_POST['inscriptionPwd']);
+    $passwordConfirm = htmlspecialchars($_POST['inscriptionPwdComfirm']);
     
     if($password == $passwordConfirm)
     {
         inscritNewUser($email, $firstName, $lastName, $password);
+        $_SESSION['message_inscription_confirm'] = "Utilisateur inscrit";
     }
     else 
     {
-        
-            
+        $_SESSION['message_inscription_error'] = "Mot de passe invalide";             
     }
     
 }

@@ -40,6 +40,10 @@
 .cel_date{
 	
 }
+.cel_reserv{
+	font-weight : normal;
+	font-size : 16px;
+}
 .cel_reserv:hover{
 	background-color: #d9edf7 !important;
 	cursor: pointer;

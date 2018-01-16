@@ -41,18 +41,44 @@ function getUser($email)
        return null;
    }
 }
-
-
+/**
+ * retourn le nombre de reservation total de l'année courrente
+ * @return unknown
+ */
+function getCountAllReservation()
+{
+    global $myConnection;
+    $myConnection->query("SELECT COUNT(*) AS NB FROM reserver WHERE YEAR(DATE_RESERVATION) = YEAR(NOW())");
+    
+    $nbReservTot = $myConnection->single();
+    return $nbReservTot['NB'];
+    
+}
+/**
+ * retourn le nombre de parcours realisé par un utilisateur
+ * @param unknown $idUser
+ * @return unknown
+ */
+function getnbParcours($idUser)
+{
+    global $myConnection;
+    
+    $myConnection->query("SELECT NB_TICKETS_TOTAL_UTIL FROM utilisateur WHERE ID_UTIL = :idUser");
+    $myConnection->bind(":idUser",$idUser, PDO::PARAM_INT);
+   
+    $nbParcours = $myConnection->single();
+    return $nbParcours['NB_TICKETS_TOTAL_UTIL'];
+}
 function inscritNewUser($email, $nom, $prenom, $password)
 {
     global $myConnection;
     
-    $myConnection->query("INSERT INTO utilisateur(`ID_ROLE`, `LASTNAME_UTIL`, `FIRSTNAME_UTIL`, `PASSWORD_UTIL`, `EMAIL`, `NB_TICKETS_SEMAINE`, `NB_TICKETS_WEEKEND`, `NB_TICKETS_TOTAL_UTIL`, `NB_ANNULATION_TOTAL`) 
-                          VALUES (2,:lastName,:firstName,:password,:email,0,0,0,0)");
+    $myConnection->query("INSERT INTO utilisateur(ID_ROLE, LASTNAME_UTIL, FIRSTNAME_UTIL, PASSWORD_UTIL, EMAIL, NB_TICKETS_SEMAINE, NB_TICKETS_WEEKEND, NB_TICKETS_TOTAL_UTIL, NB_ANNULATION_TOTAL) 
+                          VALUES (2,:lastName,:firstName,:password,:email, 0, 0, 0, 0)");
     $myConnection->bind(":lastName",$prenom, PDO::PARAM_STR);
     $myConnection->bind(":firstName",$nom, PDO::PARAM_STR);
     $myConnection->bind(":password",$password, PDO::PARAM_STR);
-    $myConnection->bind("::email",$email, PDO::PARAM_STR);
+    $myConnection->bind(":email",$email, PDO::PARAM_STR);
     
     $myConnection->execute();
 }
@@ -105,7 +131,12 @@ function initScriptJS()
     echo '</script>';
 }
 
-
+function nbReservationInferieurA2($userId)
+{
+    global $myConnection;
+    
+    
+}
 /**
  * reservation d'une place 
  * @param unknown $userId

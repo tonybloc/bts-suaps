@@ -1,6 +1,7 @@
 <?php 
 require_once(__DIR__ .'/../config.php');
 require_once(ROOT_FOLDER.DS.'model'.DS.'user.class.php');
+require_once(ROOT_FOLDER.DS.'model'.DS.'model.php');
 
 
 // Vérifie si une session existe déja sinon on la crée
@@ -45,28 +46,28 @@ if(!isset($_SESSION))
     			<td class="title_stat">Parcours</td>
     			<td class="separator_stat"> : </td>
     			<td class="value_stat">
-    			 <?=  (unserialize($_SESSION['user'])->getNbTicketTotal() != null) ? unserialize($_SESSION['user'])->getNbTicketTotal() : "0" ?>
+    			 <?=  getnbParcours(unserialize($_SESSION['user'])->getId())?>
     			</td>
     		</tr>
     		<tr>
-    			<td class="title_stat">Réservation</td>
+    			<td class="title_stat">Réservation (<?= date("Y")?>)</td>
     			<td class="separator_stat"> : </td>
     			<td class="value_stat">
-    			<?= "" // à faire ?>
+    			<?= getCountAllReservation() ?>
     			</td>
     		</tr>
     		<tr>
     			<td class="title_stat" >Annulation</td>
     			<td class="separator_stat"> : </td>
     			<td class="value_stat">
-    			<?= "" // à faire ?>
+    			<?= (unserialize($_SESSION['user'])->getNbTicketTotal() != null) ? unserialize($_SESSION['user'])->getNbTicketTotal() : "0" ?>
     			</td>
     		</tr>
     		<tr>
     			<td class="title_stat" >Invitation</td>
     			<td class="separator_stat"> : </td>
     			<td class="value_stat">
-    			<?= "" // à faire ?>
+    			<?= "0" // à faire ?>
     			</td>
     		</tr>
     	</table>
