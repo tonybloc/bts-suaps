@@ -41,7 +41,15 @@ function getUser($email)
        return null;
    }
 }
-
+function getCountAllReservation()
+{
+    global $myConnection;
+    $myConnection->query("SELECT COUNT(*) AS NB FROM reserver WHERE YEAR(DATE_RESERVATION) = YEAR(NOW())");
+    
+    $nbReservTot = $myConnection->single();
+    return $nbReservTot['NB'];
+    
+}
 
 function inscritNewUser($email, $nom, $prenom, $password)
 {
