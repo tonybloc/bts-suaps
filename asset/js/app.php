@@ -3,6 +3,11 @@ require_once(__DIR__ .'/../../config.php');
 require_once(ROOT_FOLDER . DS .'model'. DS .'model.php');
 ?>
 
+<?php 
+if(isset($_SESSION['user']))
+{
+?> 
+
 <script>
 
 var cells = document.getElementsByTagName("td");
@@ -178,3 +183,6 @@ function cancelBooking(place, userId, date)
 		});
 }			
 </script>
+<?php 
+}
+?>

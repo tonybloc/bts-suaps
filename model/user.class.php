@@ -46,6 +46,12 @@ class User
      */
     private $_nbTicketTotal;
     /**
+     * 
+     * @var int : nombre d'annulation total;
+     */
+    private $_nbAnnulation;
+    
+    /**
      * @var array : données de l'utilisateur
      */
     private $data;
@@ -57,7 +63,7 @@ class User
                 && array_key_exists("EMAIL", $data_user) && array_key_exists("FIRSTNAME_UTIL", $data_user)
                     && array_key_exists("LASTNAME_UTIL", $data_user) && array_key_exists("PASSWORD_UTIL", $data_user)
                         && array_key_exists("NB_TICKETS_SEMAINE", $data_user) && array_key_exists("NB_TICKETS_WEEKEND", $data_user)
-                            && array_key_exists("NB_TICKETS_TOTAL_UTIL", $data_user))
+                            && array_key_exists("NB_TICKETS_TOTAL_UTIL", $data_user) && array_key_exists("NB_ANNULATION_TOTAL", $data_user))
             {
                 echo "EXISTE";
                 $this->_id = $data_user['ID_UTIL'];
@@ -69,6 +75,7 @@ class User
                 $this->_nbTicketSemaine = $data_user['NB_TICKETS_SEMAINE'];
                 $this->_nbTicketWeek = $data_user['NB_TICKETS_WEEKEND'];
                 $this->_nbTicketTotal = $data_user['NB_TICKETS_TOTAL_UTIL'];
+                $this->_nbAnnulation = $data_user['NB_ANNULATION_TOTAL'];
             }
             
         }
@@ -134,6 +141,10 @@ class User
     public function getNbTicketTotal()
     {
         return $this->_nbTicketTotal;
+    }
+    public function getNbAnnulation()
+    {
+        return $this->_nbAnnulation;
     }
     
     ##### MUTTATEURS ######
@@ -231,6 +242,17 @@ class User
         if(is_int($nbTicketUtilise))
         {
             $this->_nbTicketWeek += $nbTicketUtilise;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public function setAnnulation($nbAnnul)
+    {
+        if(is_int($nbAnnul))
+        {
+            $this->_nbAnnulation += $nbAnnul;
         }
         else
         {

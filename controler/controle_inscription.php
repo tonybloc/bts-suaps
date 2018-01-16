@@ -12,6 +12,7 @@ if( empty($_POST['inscriptionFirsName']) && empty($_POST['inscriptionLastName'])
         empty($_POST['inscriptionEmail']) && empty($_POST['inscriptionPwd']) &&
             empty($_POST['inscriptionPwdComfirm']) )
 {
+    $_SESSION['message_inscription_error'] = "";
     header("/Projet/view/inscription.php");
 }
 else
@@ -26,11 +27,11 @@ else
     if($password == $passwordConfirm)
     {
         inscritNewUser($email, $firstName, $lastName, $password);
+        $_SESSION['message_inscription_confirm'] = "Utilisateur inscrit";
     }
     else 
     {
-        
-            
+        $_SESSION['message_inscription_error'] = "Mot de passe invalide";             
     }
     
 }

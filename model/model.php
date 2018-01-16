@@ -47,12 +47,12 @@ function inscritNewUser($email, $nom, $prenom, $password)
 {
     global $myConnection;
     
-    $myConnection->query("INSERT INTO utilisateur(`ID_ROLE`, `LASTNAME_UTIL`, `FIRSTNAME_UTIL`, `PASSWORD_UTIL`, `EMAIL`, `NB_TICKETS_SEMAINE`, `NB_TICKETS_WEEKEND`, `NB_TICKETS_TOTAL_UTIL`, `NB_ANNULATION_TOTAL`) 
-                          VALUES (2,:lastName,:firstName,:password,:email,0,0,0,0)");
+    $myConnection->query("INSERT INTO utilisateur(ID_ROLE, LASTNAME_UTIL, FIRSTNAME_UTIL, PASSWORD_UTIL, EMAIL, NB_TICKETS_SEMAINE, NB_TICKETS_WEEKEND, NB_TICKETS_TOTAL_UTIL, NB_ANNULATION_TOTAL) 
+                          VALUES (2,:lastName,:firstName,:password,:email, 0, 0, 0, 0)");
     $myConnection->bind(":lastName",$prenom, PDO::PARAM_STR);
     $myConnection->bind(":firstName",$nom, PDO::PARAM_STR);
     $myConnection->bind(":password",$password, PDO::PARAM_STR);
-    $myConnection->bind("::email",$email, PDO::PARAM_STR);
+    $myConnection->bind(":email",$email, PDO::PARAM_STR);
     
     $myConnection->execute();
 }
