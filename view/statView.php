@@ -46,7 +46,7 @@ if(!isset($_SESSION))
     			<td class="title_stat">Parcours</td>
     			<td class="separator_stat"> : </td>
     			<td class="value_stat">
-    			 <?=  (unserialize($_SESSION['user'])->getNbTicketTotal() != null) ? unserialize($_SESSION['user'])->getNbTicketTotal() : "0" ?>
+    			 <?=  getnbParcours(unserialize($_SESSION['user'])->getId())?>
     			</td>
     		</tr>
     		<tr>
