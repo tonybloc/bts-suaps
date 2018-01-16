@@ -152,16 +152,17 @@ function reservation($userId, $idPlace, $date, $etat=null)
     $myConnection->bind(':idPlace', $idPlace, PDO::PARAM_INT);
     $myConnection->bind(':dateReserv', $date, PDO::PARAM_STR);
     $myConnection->bind(':etat', $etat, PDO::PARAM_INT);
-    $myConnection->debugDumpParams();
     $myConnection->execute(); 
 }
-function annulerReservation($date,$userId)
+function annulerReservation($date,$userId,$idPlace)
 {
     global $myConnection;
     
-    $myConnection->query('DELETE FROM reserver WHERE ID_UTIL = :idUser, :dateReserv');
+    $myConnection->query("DELETE FROM reserver WHERE ID_UTIL = :idUser AND DATE_RESERVATION = :dateReserv AND ID_PLACE= :idPlace");
     $myConnection->bind(':dateReserv', $date, PDO::PARAM_STR);
     $myConnection->bind(':idUser', $userId, PDO::PARAM_INT);
+    $myConnection->bind(':idPlace', $idPlace, PDO::PARAM_INT);
+    $myConnection->execute(); 
 }
 /**
  * Décompte les ticket pour un utilisateur
