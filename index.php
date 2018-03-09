@@ -1,36 +1,38 @@
-
 <?php
 
-##### FICHIER DE ROUTE #####
-/*
- * Role du fichier : 
- *  Charge le bon controleur
- *  ceci est un commentaire de test rémy
+/**
+ * Fichier de root
  */
-
 
 require(__DIR__ . '/config.php');
 require(ROOT_FOLDER.DS.'controler'.DS.'controler.php');
+require(ROOT_FOLDER.DS.'controler'.DS.'controlerAdmin.php');
+require(ROOT_FOLDER.DS.'controler'.DS.'controlerBooking.php');
+require(ROOT_FOLDER.DS.'controler'.DS.'controlerLogin.php');
+require(ROOT_FOLDER.DS.'controler'.DS.'controlerStatistic.php');
+
  
 
 try
 {
     if(isset($_GET['mode']))
     {
-        // controler admin
-        if($_GET['mode'] == 'admin')
+        if($_GET['mode'] == "booking")
         {
-            
-        }else
+            bookingMode();
+        }else if($_GET['mode'] == "login")
         {
-            // controleur par défaut
-            defaultMethode();
+            loginMode();
+        }else if($_GET['mode'] == "statistic")
+        {
+            statisticMode();
+        }else if($_GET['mode'] == "home"){
+            homepageMode();
         }
     }
     else
     {
-        // controleur par défaut
-        defaultMethode();
+        homepageMode();
     }
 }
 catch(Exception $e)

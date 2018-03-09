@@ -12,12 +12,9 @@ if(!isset($_SESSION))
 }
 ?>
 
-<?php 
-ob_start();
-require_once( ROOT_FOLDER.DS.'view'.DS.'header.php')
+<?php ob_start();?>
 
-?>
-
+<h3>Page de statistique</h3>
 
 <?php $content = ob_get_clean();?>
-<?php require(ROOT_FOLDER.DS.'view'.DS.'template.php') ?>
+<?php require(ROOT_FOLDER.DS.'view'.DS.'Layout'.DS.'LayoutSimple.php') ?>

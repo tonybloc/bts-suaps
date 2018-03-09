@@ -10,7 +10,7 @@ if(!isset($_SESSION))
     session_start();
 }
 ?>
-    
+<?php ob_start(); ?>
 
 <div class="panel_stat">
 	<?php 
@@ -79,8 +79,10 @@ if(!isset($_SESSION))
     ?>
     	<p style="text-align:center;padding:5px;margin:5px 0px 0px 0px;"><i class="fa fa-info-circle fa-2x" aria-hidden="true"></i></p>
     	<p style="text-align:center;padding:5px;">Pour réserver une place, vous devez vous connecter</p>
-        <p style="text-align:center;padding:5px;"><a class="btn btn-default" href="/Projet_SUAPS/view/connectUserView.php">Se Connecter</a></p>
+        <p style="text-align:center;padding:5px;"><a class="btn btn-default" href="/Projet_SUAPS/view/ViewUserConnection.php">Se Connecter</a></p>
    	<?php 
     }
     ?>
 </div>
+
+<?php $userStatistique = ob_get_clean();?>

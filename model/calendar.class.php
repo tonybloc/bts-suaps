@@ -50,12 +50,19 @@ class Calendar
         $this->nbDays           = cal_days_in_month(CAL_GREGORIAN, $_month, $_year);
     }
     
+    public function addDay($_day)
+    {
+        $customDate = new DateTime($this->day.'-'.$this->month .'-'.$this->year . " +".$_day . " day");
+        
+        $this->day = $customDate->format("d");
+        $this->month = $customDate->format("m");
+        $this->year = $customDate->format("Y");
+    }
     /**
      * Génére le calendrier
      */
     public function _generate()
     {
-       
         /*-- GENERATION DU CALENDRIER --*/
         
         echo "<div id='content'>";
@@ -98,7 +105,7 @@ class Calendar
 
             $this->dayWeek = jddayofweek($this->dateFormatter);
             
-            // Première cellule : Mois acctuel
+            // Première cellule : Mois actuel
             if ($i == 1)
             {
                     echo "<thead><tr><th class='cel cel_month'></th>";
@@ -221,13 +228,13 @@ class Calendar
         $listeDesMois = array("Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre");
         
         $tempMonth = $listeDesMois[$this->month-1] ." ".$this->year;
-        
+       
         if ($this->day+14 >$this->nbDays )
         {
             if ($this->month == 12)
                 $tempMonth = $listeDesMois[11]."/".$listeDesMois[0] ." - ". $this->year."/".($this->year+1);
             else
-                $tempMonth =$listeDesMois[$this->month]."/".$listeDesMois[$this->month+1] ." - ". $this->year;
+                $tempMonth =$listeDesMois[intval($this->month)-1]."/".$listeDesMois[intval($this->month)] ." - ". $this->year;
         }
         return $tempMonth;
     }

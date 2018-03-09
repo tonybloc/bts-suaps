@@ -18,7 +18,7 @@ if(isset($_SESSION['user']))
   <div class="header_content">
   	<div class="header_brand">
     	<div class="header_title">
-        	<h1><a href="/Projet_SUAPS/view/indexView.php">Réservations golf de la Wantzenau</a></h1>
+        	<h1><a href="/Projet_SUAPS/view/homepage.php">Réservations golf de la Wantzenau</a></h1>
             <p>Année 2017 - 2018</p>
        </div>
     </div>
@@ -35,7 +35,7 @@ if(isset($_SESSION['user']))
   						<span class="icon-bar"></span>	
   					</button>
   					<div class="navbar-brand">
-  						<a href="/Projet_SUAPS/index.php">
+  						<a href="/Projet_SUAPS/view/homepage.php">
   							<span style="color:gray;"class="glyphicon glyphicon-home" aria-hidden="true"></span>
   						</a>
   					</div>
@@ -43,7 +43,7 @@ if(isset($_SESSION['user']))
   							
   				<div class="collapse navbar-collapse" id="navbar-collapse-mobile">
   					<ul class="nav navbar-nav">
-  						<li><a href="/Projet_SUAPS/view/reservView.php">Réservation</a></li>
+  						<li><a href="/Projet_SUAPS/controler/controlerBooking.php">Réservation</a></li>
   						<li><a href="#">Association</a></li>
   						<li><a href="#">Autre...</a></li>
   					</ul>
@@ -52,11 +52,11 @@ if(isset($_SESSION['user']))
   						if(isset($_SESSION['user']))
   						{
   						    echo '<li><a>Connecté : '.$lastName.' '.$firstName.'</a></li>';
-  						    echo '<li><a href="/Projet_SUAPS/controler/connexion.php?disc=1">Se déconnecter</a></li>';
+  						    echo '<li><a href="/Projet_SUAPS/controler/controlerLogin.php?disc=1">Se déconnecter</a></li>';
   						}
   						else
   						{
-  						    echo '<li><a href="/Projet_SUAPS/view/connectUserView.php">Se connecter</a></li>';
+  						    echo '<li><a href="/Projet_SUAPS/index.php?mode=login">Se connecter</a></li>';
   						}
   						?>		
   					</ul>

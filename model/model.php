@@ -248,10 +248,9 @@ function reservation($userId, $idPlace, $date, $etat=null)
 {
     global $myConnection;
     
-    $myConnection->query('INSERT INTO reserver(ID_UTIL, ID_PLACE, DATE_RESERVATION, ETAT) VALUES (:idUser, :idPlace, :dateReserv, :etat)');
+    $myConnection->query("INSERT INTO reserver(ID_UTIL, ID_PLACE, DATE_RESERVATION, ETAT) VALUES (:idUser, :idPlace, '".$date."', :etat)");
     $myConnection->bind(':idUser', $userId, PDO::PARAM_INT);
     $myConnection->bind(':idPlace', $idPlace, PDO::PARAM_INT);
-    $myConnection->bind(':dateReserv', $date, PDO::PARAM_STR);
     $myConnection->bind(':etat', $etat, PDO::PARAM_INT);
     $myConnection->execute(); 
 }
@@ -259,10 +258,7 @@ function annulerReservation($date,$userId,$idPlace)
 {
     global $myConnection;
     
-    $myConnection->query("DELETE FROM reserver WHERE ID_UTIL = :idUser AND DATE_RESERVATION = :dateReserv AND ID_PLACE= :idPlace");
-    $myConnection->bind(':dateReserv', $date, PDO::PARAM_STR);
-    $myConnection->bind(':idUser', $userId, PDO::PARAM_INT);
-    $myConnection->bind(':idPlace', $idPlace, PDO::PARAM_INT);
+    $myConnection->query("DELETE FROM reserver WHERE ID_UTIL = ".$userId." AND DATE_RESERVATION = '".$date."' AND ID_PLACE = ".$idPlace);
     $myConnection->execute(); 
 }
 /**

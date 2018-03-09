@@ -1,19 +1,21 @@
-<?php 
+<?php
 require_once(__DIR__ .'/../config.php');
 require_once (ROOT_FOLDER.DS.'model'.DS.'model.php');
-    
+
 if(!isset($_SESSION))
 {
     session_start();
 }
 ?>
+
+
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title> <?= $title ?> </title>
-	
-		
+
+
         <!-- Style -->
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/calendar.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/formulaire.css">
@@ -22,36 +24,38 @@ if(!isset($_SESSION))
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/statistique.css">
         <link rel="stylesheet" href="/Projet_SUAPS/asset/css/reservation.css">
      	<link rel="stylesheet" href="/Projet_SUAPS/asset/css/home.css">
-		
+
 		<!--Style Bootstrap -->
         <link rel="stylesheet" href="/Projet_SUAPS/asset/bootstrap/css/bootstrap.min.css">
-        
+
         <!-- Icons -->
         <link rel="stylesheet" href="/Projet_SUAPS/asset/font-awesome/css/font-awesome.min.css">
-        
-        
+
+
 		<style>
 		  body{
-		      background-color:#EFEFEF;		      
+		      background-color:#EFEFEF;
 		  }
 		  .error{
 		      color:red;
 		  }
 		</style>
 	</head>
-	
-	<body>		
-		<?= (isset($content))?$content:null  ?>
+
+	<body>
+		<?php require(ROOT_FOLDER.DS.'view'.DS.'Layout'.DS.'LayoutHeader.php');?>
+		<section>
+			<?= (isset($mainContent))?$mainContent:null  ?>
+		</section>
 	</body>
-	<p></p>
-	
+
 	<!-- Script -->
-	
+
 	<?php require_once(ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'scriptCalendrier.php');?>
-		
+
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="/Projet_SUAPS/asset/bootstrap/js/bootstrap.min.js" crossorigin="anonymous"></script>
-		 
+
 	<script src="/Projet_SUAPS/asset/js/jquery.validate.js"></script>
 	<script src="/Projet_SUAPS/asset/js/validationForm.js"></script>
 	<?php require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'app.php');?>

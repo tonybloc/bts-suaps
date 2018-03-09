@@ -14,8 +14,6 @@ $title = "inscription";
 <?php ob_start(); ?>
 
 <?php 
-require_once(__DIR__ .'/../config.php');
-require_once( ROOT_FOLDER.DS.'view'.DS.'header.php')
 
 ?>
 <section class="container" id="inscription">
@@ -27,7 +25,7 @@ require_once( ROOT_FOLDER.DS.'view'.DS.'header.php')
       <!-- Inscription -->
       <div class="account_form">
       
-        <form id="formInscription" action="/Projet_SUAPS/controler/controle_inscription.php" method="post">
+        <form id="formInscription" action="/Projet_SUAPS/controler/controleInscription.php" method="post">
           <fieldset>
             <legend>Créer un compte SUAPS</legend>
             <div class="row">
@@ -74,7 +72,29 @@ require_once( ROOT_FOLDER.DS.'view'.DS.'header.php')
             </div>
             
           </fieldset>
-          <button type="submit" class="btn btn-default">Inscription</button>
+          <div class="form-group">
+              <div class="col-sm-4">
+              	<button type="submit" class="btn btn-default">Inscription</button>
+              </div>          
+              <div class="col-sm-4">
+                		<?php
+                		if(isset($_GET['insc'])){
+                		    
+                		    if($_GET['insc'] == "success" && isset($_SESSION['message_inscription_confirm']) && !empty($_SESSION['message_inscription_confirm']))
+                		    {
+                		        echo "<p style='color:green'><i style='padding:5px;color:green;'class='fa fa-check' aria-hidden='true'></i>" .  $_SESSION['message_inscription_confirm'] . "</p>";
+                		    }
+                		    else if($_GET['insc'] == "wrong" && isset($_SESSION['message_inscription_error']) && !empty($_SESSION['message_inscription_error']))
+                		    {
+                		        echo "<p style='color:red'><i style='padding:5px;color:red;'class='fa fa-times' aria-hidden='true'></i>" . $_SESSION['message_inscription_error'] . "</p>";
+                		    }
+                		    else {
+                		        echo "";
+                		    }
+                		}                			
+                		?>
+            	</div>
+          </div>
         </form>
       </div>
     </div>
@@ -82,4 +102,4 @@ require_once( ROOT_FOLDER.DS.'view'.DS.'header.php')
 </main>
 
 <?php $content = ob_get_clean();?>
-<?php require(ROOT_FOLDER.DS.'view'.DS.'template.php') ?>
+<?php require(ROOT_FOLDER.DS.'view'.DS.'Layout'.DS.'LayoutSimple.php') ?>
