@@ -25,7 +25,7 @@ $title = "inscription";
       <!-- Inscription -->
       <div class="account_form">
       
-        <form id="formInscription" action="/Projet_SUAPS/controler/controleInscription.php" method="post">
+        <form id="formInscription" action="/Projet_SUAPS/controler/controlerInscription.php" method="post">
           <fieldset>
             <legend>Créer un compte SUAPS</legend>
             <div class="row">

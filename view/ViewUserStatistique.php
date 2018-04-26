@@ -32,14 +32,14 @@ if(!isset($_SESSION))
     			<td class="title_stat">Tickets SEM</td>
     			<td class="separator_stat"> : </td>
     			<td class="value_stat">
-    			<?= (unserialize($_SESSION['user'])->getNbTicketSemaine() != null) ? unserialize($_SESSION['user'])->getNbTicketWeek() : "0" ?>
+    			<?= getNbTicketSemaine(unserialize($_SESSION['user'])->getId()) ?>
     			</td>
     		</tr>
     		<tr>
     			<td class="title_stat">Tickets WE</td>
     			<td class="separator_stat"> : </td>
     			<td class="value_stat">
-    			<?=  (unserialize($_SESSION['user'])->getNbTicketWeek() != null) ? unserialize($_SESSION['user'])->getNbTicketWeek() : "0" ?>
+    			<?=  getNbTicketWeekend(unserialize($_SESSION['user'])->getId()) ?>
     			</td>
     		</tr>
     		<tr>
@@ -77,9 +77,12 @@ if(!isset($_SESSION))
     else 
     {
     ?>
+    <div style="padding:10px;">
     	<p style="text-align:center;padding:5px;margin:5px 0px 0px 0px;"><i class="fa fa-info-circle fa-2x" aria-hidden="true"></i></p>
     	<p style="text-align:center;padding:5px;">Pour réserver une place, vous devez vous connecter</p>
         <p style="text-align:center;padding:5px;"><a class="btn btn-default" href="/Projet_SUAPS/view/ViewUserConnection.php">Se Connecter</a></p>
+    </div>
+    	
    	<?php 
     }
     ?>

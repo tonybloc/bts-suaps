@@ -39,6 +39,19 @@ if(!isset($_SESSION))
 		  .error{
 		      color:red;
 		  }
+		  .tempo {
+		      animation-name: messageTempo;
+		      animation-duration: 10s;
+		      visibility:hidden;
+		  }
+		  @keyframes messageTempo {
+		      from {
+		          visibility:visible;
+		      }
+		      to {		          
+		          visibility:hidden;
+		      }
+		  }
 		</style>
 	</head>
 
@@ -58,7 +71,11 @@ if(!isset($_SESSION))
 
 	<script src="/Projet_SUAPS/asset/js/jquery.validate.js"></script>
 	<script src="/Projet_SUAPS/asset/js/validationForm.js"></script>
-	<?php require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'app.php');?>
+	<?php 
+	require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'fill_calendar.php');
+	require_once (ROOT_FOLDER.DS.'view'.DS.'modalReservation.php');
+	require_once (ROOT_FOLDER.DS.'asset'.DS.'js'.DS.'app.php');
+	?>
 
 
 </html>

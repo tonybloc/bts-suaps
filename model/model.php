@@ -10,7 +10,10 @@ require_once(__DIR__ .'/../config.php');
 require_once(ROOT_FOLDER . DS .'model'. DS .'connect.class.php');
 require_once(ROOT_FOLDER . DS .'model'. DS .'user.class.php');
 
-
+if(!isset($_SESSION))
+{
+    session_start();
+}
 
 // Variables de connexion commune à toute les méthodes
 $myConnection = new Connection();
@@ -69,6 +72,33 @@ function getnbParcours($idUser)
     return $nbParcours['NB_TICKETS_TOTAL_UTIL'];
 }
 
+
+
+/*
+ * Gestion des tickets
+ */
+
+function getNbTicketWeekend($userId){
+    global $myConnection;
+    $myConnection->query("SELECT NB_TICKETS_WEEKEND FROM utilisateur WHERE ID_UTIL = :idUtil");
+    $myConnection->bind(":idUtil",$userId, PDO::PARAM_INT);
+    $nbAnnulation = $myConnection->single();
+    return $nbAnnulation['NB_TICKETS_WEEKEND'];
+}
+
+function getNbTicketSemaine($userId){
+    global $myConnection;
+    $myConnection->query("SELECT NB_TICKETS_SEMAINE FROM utilisateur WHERE ID_UTIL = :idUtil");
+    $myConnection->bind(":idUtil",$userId, PDO::PARAM_INT);
+    $nbAnnulation = $myConnection->single();
+    return $nbAnnulation['NB_TICKETS_SEMAINE'];
+}
+
+/**
+ * Ajoute un ticket weekend
+ * @param unknown $userId
+ * @param unknown $nbTickets
+ */
 function addTicketWeekend($userId, $nbTickets)
 {
     global $myConnection;
@@ -78,7 +108,14 @@ function addTicketWeekend($userId, $nbTickets)
     $myConnection->bind("nbTickets",$nbTickets, PDO::PARAM_INT);
     
     $myConnection->execute();
+    
+    unserialize($_SESSION['user'])->delTicketWeek( unserialize($_SESSION['user'])->getNbTicketWeek() + nbTickets );
 }
+
+/**
+ * Suprime un ticket weekend
+ * @param unknown $userId
+ */
 function supTicketWeekend($userId)
 {
     global $myConnection;
@@ -87,7 +124,15 @@ function supTicketWeekend($userId)
     $myConnection->bind(":userId",$userId, PDO::PARAM_INT);
     
     $myConnection->execute();
+    
+    unserialize($_SESSION['user'])->delTicketWeek( unserialize($_SESSION['user'])->getNbTicketWeek() - 1 );
 }
+
+/**
+ * Ajoute un ticket semaine
+ * @param unknown $userId
+ * @param unknown $nbTickets
+ */
 function addTicketSemaine($userId, $nbTickets)
 {
     global $myConnection;
@@ -98,6 +143,11 @@ function addTicketSemaine($userId, $nbTickets)
     
     $myConnection->execute();
 }
+
+/**
+ * Suprime un ticket semaine
+ * @param unknown $userId
+ */
 function supTicketSemaine($userId)
 {
     global $myConnection;
@@ -107,6 +157,8 @@ function supTicketSemaine($userId)
     
     $myConnection->execute();
 }
+
+
 function supNbParcours($userId)
 {
     global $myConnection;
@@ -215,28 +267,6 @@ function initScriptJS()
     echo '</script>';
 }
 
-function nbReservationInferieurA2($email)
-{
-    global $myConnection;
-    
-    $user = getUser($email);
-
-    $userId = $user['ID_UTIL'];
-    var_dump($userId);
-    /*
-    $myConnection->query("IF
-                (
-                    (
-                    SELECT COUNT(*) 
-                    FROM reserv 
-                    WHERE ID_UTIL = :idUtil AND DATE_RESERVATION >= NOW() AND DATE_RESERVATION <= DATE_ADD(NOW(), INTERVAL 15 DAY) )
-                    ) <=2
-                 ) , SELECT
-                
-                
-                 ")
-    */
-}
 /**
  * reservation d'une place 
  * @param unknown $userId
@@ -272,12 +302,17 @@ function decomptePlace($email)
     $user = getUser($email);
     var_dump($user);
 }
+
+
 /**
- * Remplie le calendrier avec les données contenu dans la bdd;
+ * Vérifie le nombre de réservation d'un participants
+ * @return unknown
  */
-function completeCalendar()
-{
+function checkCountBooking($userId){
     
+    global $myConnection;
+    $myConnection->query('SELECT COUNT(*) from reserver WHERE ID_UTIL = '.$userId.' AND DATE_RESERVATION BETWEEN DATE_FORMAT(NOW(), "%Y-%m-%d") and DATE_ADD(DATE_RESERVATION, INTERVAL 15 DAY)');
+    return $myConnection->resultset();
 }
 /**
  * 
@@ -307,7 +342,29 @@ function initSessionUsers()
     }
     $_SESSION['Users'] = substr($_SESSION['Users'],0,strlen($_SESSION['Users'])-1);   
 }
-
+/**
+ * retourn le nombre de réservation effectuer par un utilisateur
+ * @param unknown $idUser
+ * @return unknown
+ */
+function getNumberOfBooking($idUser){
+    global $myConnection;
+    $myConnection->query("SELECT LASTNAME_UTIL,
+        FIRSTNAME_UTIL,
+        ID_PLACE,
+        DATE_RESERVATION AS DATE_RESERV,
+        EMAIL,
+        count(*) as NUMBER_RESERV
+        FROM utilisateur u
+        INNER JOIN reserver r
+        ON r.ID_UTIL = u.ID_UTIL
+        WHERE DATE_RESERVATION >= CURDATE()
+        AND DATE_RESERVATION <= DATE_ADD(CURDATE(), INTERVAL 15 DAY) AND u.ID_UTIL = :idUser");
+    $myConnection->bind(":idUser", $idUser, PDO::PARAM_INT);
+    $numberOfBooking = $myConnection->single();
+    return $numberOfBooking['NUMBER_RESERV'];
+    
+}
 function getDatasToFillCalendar()
 {
     global $myConnection;
@@ -321,7 +378,7 @@ function getDatasToFillCalendar()
         INNER JOIN reserver r 
         ON r.ID_UTIL = u.ID_UTIL 
         WHERE DATE_RESERVATION >= CURDATE() 
-        AND DATE_RESERVATION <= DATE_ADD(DATE_RESERVATION, INTERVAL 15 DAY)");
+        AND DATE_RESERVATION <= DATE_ADD(CURDATE(), INTERVAL 15 DAY)");
     if ($myConnection!=null)
         return $myConnection->resultset();
 }
@@ -332,13 +389,13 @@ function initSessionUsersCalendar()
     if  ($bufferUsersToFill != "];")
     {
         $bufferUsersTab = 0;
-        $_SESSION['UsersCalendar']= "[";
+        $_SESSION['UsersCalendar'] = "";
         foreach($bufferUsersToFill as $row => $link)
         {
             $bufferUsersTab++;
             $_SESSION['UsersCalendar'].="{'Lastname':'".$link['LASTNAME_UTIL']."','name':'".$link['FIRSTNAME_UTIL']."','place':'".$link['ID_PLACE']."','date':'".$link['DATE_RESERV']."','email':'".$link['EMAIL']."'},";
         }
-        $_SESSION['UsersCalendar'] = substr($_SESSION['UsersCalendar'],0,strlen($_SESSION['UsersCalendar'])-1);
-        $_SESSION['UsersCalendar'].= "]";
+        $_SESSION['UsersCalendar'] = "[".substr($_SESSION['UsersCalendar'],0,strlen($_SESSION['UsersCalendar'])-1)."]";
+        
     }
 }

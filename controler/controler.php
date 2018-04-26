@@ -1,11 +1,8 @@
-
-
 <?php
-##### FICHIER DE CONTROLE #####
+
 /*
  * Role du fichier : 
- *  Demande aux differents modèles des données, puis il les distribuent
- *  dans les fichier de vue adéquate. 
+ * Liste les controleurs
  */
 
 require_once(__DIR__ .'/../config.php');
@@ -18,7 +15,7 @@ if(!isset($_SESSION))
 }
 
 /**
- * Methode de test (pour l'instant)
+ * Affichage de la page d'acceuil
  */
 function homepageMode()
 {

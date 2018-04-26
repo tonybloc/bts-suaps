@@ -1,13 +1,17 @@
 <?php
-/***
- * Controleur : Réservation
+/*
+ * Réservation, Invitation, Annulation de parcours de golf
  */
 require_once(__DIR__ .'/../config.php');
 require_once(ROOT_FOLDER.DS .'model'. DS .'model.php');
 
+if(!isset($_SESSION))
+{
+    session_start();
+} 
 
-if(isset($_GET['action'])){
-    
+// Suivan l'action
+if(isset($_GET['action'])){    
     $mode = htmlspecialchars($_GET['action']);
     
     switch ($mode){
@@ -32,7 +36,9 @@ if(isset($_GET['action'])){
     header("Location: /Projet_SUAPS/view/ViewBooking.php");
 }
 
-
+/**
+ * Réservation
+ */
 function actionReservation(){
     if(isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userid']) &&
         !empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userid'])){
@@ -48,22 +54,41 @@ function actionReservation(){
             $dateDay = $d['day'];
             $nbJourJulien = cal_to_jd(CAL_GREGORIAN, $dateMonth, $dateDay, $dateYear);
             
-            // Réservation (INSERT INTO) bdd
-            reservation($userid, $place, $date, null);
+            if(getNumberOfBooking($userid) < 2){
+                $_SESSION['ERREUR_TROP_DE_RESERVATION'] = "";
+                // Vérifi si c'est un weekend ou non
+                if(jddayofweek($nbJourJulien) == 0 || jddayofweek($nbJourJulien) == 6)
+                {
+                    if(getNbTicketWeekend($userid) <= 0){
+                        $_SESSION['ERREUR_TICKETS_MANQUANTS'] = "Votre nombre de tickets 'weekend' est insuffisant (Veuillez contacter un administrateur pour créditer votre compte)";
+                    }else{
+                        $_SESSION['ERREUR_TICKETS_MANQUANTS']="";
+                        reservation($userid, $place, $date, null);
+                        supTicketWeekend($userid);
+                        addNbParcours($userid);
+                    }
+                }
+                else{
+                    if(getNbTicketSemaine($userid) <= 0){
+                        $_SESSION['ERREUR_TICKETS_MANQUANTS'] = "Votre nombre de tickets 'semaine' est insuffisant (Veuillez contacter un administrateur pour créditer votre compte)";
+                    }else{
+                        $_SESSION['ERREUR_TICKETS_MANQUANTS']="";
+                        reservation($userid, $place, $date, null);
+                        supTicketSemaine($userid);
+                        addNbParcours($userid);
+                    }
+                }
+            }else{
+                $_SESSION['ERREUR_TROP_DE_RESERVATION'] = "Reservation imposible : maximum 2 réservation en avance";
+            }
             
-            // Vérifi si c'est un weekend ou non
-            if(jddayofweek($nbJourJulien) == 0 || jddayofweek($nbJourJulien) == 6)
-            {
-                supTicketWeekend($userid);
-            }
-            else{
-                supTicketSemaine($userid);
-            }
-            // incrementation du nombre de parcours fait par l'utilisateur
-            addNbParcours($userid);
+            
     }
 }
 
+/**
+ * Annulation de sa propore réservation
+ */
 function actionAnnulationSelf(){
     if(isset($_GET['place']) &&  isset($_GET['date']) && isset($_GET['userid']) &&
         !empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userid'])){
@@ -94,6 +119,9 @@ function actionAnnulationSelf(){
     }
 }
 
+/**
+ * Annulation d'une réservation d'un autre utilisateur (fonction utlisé pour les "admin")
+ */
 function actionAnnulationElse(){
     if(isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userSelectedEmail']) &&
         !empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userSelectedEmail'])){
@@ -126,12 +154,14 @@ function actionAnnulationElse(){
     }
 }
 
+/**
+ * Invitation d'une autre personne
+ */
 function actionInvitation(){
     
     if(isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userid']) && isset($_GET['userinviteemail']) &&
         !empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userid']) && !empty($_GET['userinviteemail']) ){
             
-            echo "BOOOM !";
             $place = htmlspecialchars($_GET['place']);
             $date = htmlspecialchars($_GET['date']);
             $userid = htmlspecialchars($_GET['userid']);
@@ -146,16 +176,28 @@ function actionInvitation(){
             $userInviteEmail = htmlspecialchars($_GET['userinviteemail']);
             $userInvite = getUser($userInviteEmail);
             
-            reservation($userInvite['ID_UTIL'], $place, $date);
-            
+                        
             // Supprime un ticket weekend ou semaine en fonction du jour
             if(jddayofweek($nbJourJulien) == 0 || jddayofweek($nbJourJulien) == 6)
-            {
-                supTicketWeekend($userid);
+            {                
+                if(getNbTicketWeekend($userid) <= 0){
+                    $_SESSION['ERREUR_TICKETS_MANQUANTS'] = "Votre nombre de tickets 'semaine' est insuffisant (Veuillez contacter un administrateur pour créditer votre compte)";
+                }else{
+                    $_SESSION['ERREUR_TICKETS_MANQUANTS']="";
+                    reservation($userInvite['ID_UTIL'], $place, $date);
+                    supTicketWeekend($userid);
+                }
             }
             else{
-                supTicketSemaine($userid);
+                if(getNbTicketSemaine($userid) <= 0){
+                    $_SESSION['ERREUR_TICKETS_MANQUANTS'] = "Votre nombre de tickets 'semaine' est insuffisant (Veuillez contacter un administrateur pour créditer votre compte)";
+                }else{
+                    $_SESSION['ERREUR_TICKETS_MANQUANTS']="";
+                    reservation($userInvite['ID_UTIL'], $place, $date);
+                    supTicketSemaine($userid);
+                }                
             }
+            addNbParcours($userInvite['ID_UTIL']);
 
     }
 }

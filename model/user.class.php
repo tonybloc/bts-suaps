@@ -94,9 +94,8 @@ class User
     {
         // 1 : Administrateur
         // 2 : Membre
-        // 4 : Adhérant
         // 3 : invité
-        
+        // 4 : Adhérant
         return $this->_role;
     }
     public function getRoleLib()
