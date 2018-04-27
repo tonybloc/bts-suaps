@@ -5,7 +5,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h2 class="modal-title">Inscription</h2>
+				<h2 class="modal-title">Réservation</h2>
 			</div>
 			<div class="modal-body">
 				<p id="modal-text"></p>

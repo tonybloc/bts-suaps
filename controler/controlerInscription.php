@@ -1,6 +1,6 @@
-<?php 
+<?php
 /*
- * Inscription des utilisateur 
+ * Cotisation de utilisateur
  */
 require_once(__DIR__. '/../config.php');
 require_once(ROOT_FOLDER . DS .'model'. DS .'model.php');
@@ -45,7 +45,5 @@ if( isset($_POST['inscriptionFirstName']) && isset($_POST['inscriptionLastName']
 }else{
     header("location: /Projet_SUAPS/view/ViewInscription.php?insc=wrong");
 }
-    
-
 
 ?>

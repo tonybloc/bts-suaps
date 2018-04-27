@@ -1,9 +1,19 @@
-.test{
-	padding : 30px;
-	background-color: #EFEFEF;
-	border-radius: 5px;
+.setup-wrapper{
+  width: 700px;
+  margin: 0 auto;
 }
-.test > h1{
-	text-align: center;
-	padding:10px;
+
+.account_header > h2{
+  text-align: center;
+  margin: 30px 0px;
+}
+.form-group label{
+  font-weight: bolder;
+}
+fieldset{
+	background-color: white !important;
+	
+	box-shadow: 2px 3px 8px 0 rgba(0,0,0,.2);
+	
+	padding: 20px !important;
 }

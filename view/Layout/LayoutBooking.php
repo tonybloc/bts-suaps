@@ -8,12 +8,12 @@ if(!isset($_SESSION))
 {
     session_start();
 }
-?>
 
-<?php $title = "Réservation"; ?>
-
-<?php require_once (ROOT_FOLDER.DS.'view'.DS.'ViewUserStatistique.php');?>
-<?php require_once (ROOT_FOLDER.DS.'view'.DS.'menuAdmin.php');?>		
+$title = "Réservation";
+require_once (ROOT_FOLDER.DS.'view'.DS.'ViewUserStatistique.php');
+require_once (ROOT_FOLDER.DS.'view'.DS.'menuAdmin.php');
+require_once (ROOT_FOLDER.DS.'view'.DS.'menu.php');
+?>		
 
 <?php ob_start(); ?>
 
@@ -22,6 +22,7 @@ if(!isset($_SESSION))
 		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 panel-left">
 			<?=$userStatistique?>
 			<?=$menuAdminContent?>
+			<?=$menuContent?>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 panel-right">
 			<?= $bookingContent ?>

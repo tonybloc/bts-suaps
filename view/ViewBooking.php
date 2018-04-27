@@ -30,10 +30,11 @@ else{
     else if($_GET["date"] == "pre"){
         $i = $_GET['next'];
         
-        $calendar1->addDay(14*$i);
+        $calendar1->addDay(15*$i);
     }
     
 }
+$stringDate = $calendar1->getYear() . "-" . $calendar1->getMonth() . "-" . $calendar1->getDay();
 ?>
 <?php ob_start(); ?>
 
@@ -73,14 +74,14 @@ else{
 	<div>
 		<div style="text-align:center;">
 			<a class="btn btn-primary btn-calandar-navigation" href=<?= isset($_GET['next'])?"/Projet_SUAPS/view/ViewBooking?date=pre&next=". ($_GET['next']-1):"/Projet_SUAPS/view/ViewBooking?date=pre&next=-1" ?>><i class="fa fa-angle-left"></i> Precedent </a>
+			<a class="btn btn-primary btn-calandar-navigation" href="/Projet_SUAPS/view/ViewBooking?date=pre&next=0"> Aujourd'hui </a>
 			<a class="btn btn-primary btn-calandar-navigation" href=<?= isset($_GET['next'])?"/Projet_SUAPS/view/ViewBooking?date=sui&next=". ($_GET['next']+1):"/Projet_SUAPS/view/ViewBooking?date=sui&next=1" ?>> Suivant <i class="fa fa-angle-right"></i></a>
 		</div>
 	</div>
 	
 	<?php
-	
 	$calendar1->generate();
-	initSessionUsersCalendar();
+	initSessionUsersCalendar($stringDate);
 	
 	?>
 </div>

@@ -28,57 +28,77 @@ var action = 0;
 		2.2 : book else
 		2.3 : invite else
 */
+
+// Lorsqu'on click sur une case du calendrier
 $("#calendrier").on("click", "td", function(e) {
 	var str = "";
-	var userSelectedEmail = $(this).children().next().text();
 	
-	var player = ($(this).attr("id")).split("-")[0].substring(1);
-	var dateY = ($(this).attr("id")).split("-")[1];
-	var dateM = ($(this).attr("id")).split("-")[2];
-	var dateD = ($(this).attr("id")).split("-")[3];
-	var date = dateD + "/" + dateM + "/" + dateY;
-	
+	var userSelectedEmail = $(this).children().next().html();		// email de l'utilisateur (référence à la case)
+	var player = ($(this).attr("id")).split("-")[0].substring(1);	// place de l'utilisateur (référence à la case)
+	var dateY = ($(this).attr("id")).split("-")[1];		// annee (référence à la case)
+	var dateM = ($(this).attr("id")).split("-")[2];		// mois (référence à la case)
+	var dateD = ($(this).attr("id")).split("-")[3];		// jour (référence à la case)
+	var date = dateD + "/" + dateM + "/" + dateY;		
 	var dateToCel = dateY + '-' + dateM + '-' + dateD;
 
+	var userSelectedInvite = $(this).children().next().next().next().html();
+	
+	// stocker les informations dans la sessionStorage JS
 	sessionStorage.setItem('place', player);
 	sessionStorage.setItem('date', dateToCel);
 	sessionStorage.setItem('userSelectedEmail', userSelectedEmail);
+
+	//affichage du modal
 	$("#modal-validate").show();
 	$("#modal-booking").hide();
 	$("#modal-input-else").prop("disabled", true);
-	
+
+	// place déjà réservé
 	if (this.innerHTML != "") 
 	{
-		if (userRole == 1) 
-		{
-			str = "Voulez-vous désinscrire cette personne ?";
-			action = 1.2;
-			console.log(action)
-		}
-		else if(this.innerHTML.indexOf(userMail)!== -1)
+		
+		// pour les utilisateurs voulant se désinscrire
+		if(this.innerHTML.indexOf(userMail)!== -1)
 		{
 			str = "Voulez-vous vous désinscrire ?";
 			action = 1.3;
 			console.log(action)
 		}
+		// pour les utilisateurs voulant désinscrire leurs invité		
+		else if(userSelectedInvite == userId){
+			str = "Vous aviez invité cette personne. Voulez-vous la désinscrire ?";
+			action = 1.2;
+			console.log(action)
+		}
+		// pour les admins voulant désinscrire qqun
+		else if (userRole == 1) 
+		{
+			str = "<strong>Administrateur :</strong> Voulez-vous désinscrire cette personne ?";
+			action = 1.2;
+			console.log(action)
+		}
+		// pour les utilisateurs voulant désinscrire qqun
 		else 
 		{
 			str = "Une personne est déjà inscrite à cette place.";
 			$("#modal-validate").hide();
 		}
 	} 
+	// Nouvelle réservation
 	else 
 	{
+		// role : admin + adhérant
 		if (userRole == 1 || userRole == 4) 
 		{
 			str = "Qui voulez inscrire le " + date + " en tant que joueur " + player + " ?";
-
 			$("#modal-booking").show();
 		} 
+		// role : membre
 		else if (userRole == 2) 
 		{
 			str = "Vous devez mettre à jour votre carte de membre pour pouvoir vous inscrire.";
 		} 
+		// role : invité
 		else if (userRole == 3) 
 		{
 			str = "Vous devez être adhérant pour pouvoir vous inscrire.";
@@ -151,18 +171,17 @@ $("#modal-validate").on("click", function() {
 	else if (action == 1.2) 
 	{
 		console.log("unbook else");
-		console.log("/Projet_SUAPS/controler/controlerBooking.php?action=annulation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId()?>);
-		document.location = "/Projet_SUAPS/controler/controlerBooking.php?action=annulation_else&place="+ place +"&date=" + dateToCel + "&userSelectedEmail="+userSelectedEmail;
+		document.location = "/Projet_SUAPS/controler/controlerBooking.php?action=annulation_else&place="+ place +"&date=" + dateToCel + "&userSelectedEmail="+userSelectedEmail + "&userid="+ userId;
 	}
 	else if (action == 1.3){
 		console.log("unbook self");
 		console.log("/Projet_SUAPS/controler/controlerBooking.php?action=annulation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId()?>);
-		document.location = "/Projet_SUAPS/controler/controlerBooking.php?action=annulation_self&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
+		document.location = "/Projet_SUAPS/controler/controlerBooking.php?action=annulation_self&place="+ place +"&date=" + dateToCel + "&userid="+ userId;
 	}	
 	else if (action == 2.1) 
 	{
 		console.log("book self");
-		document.location = "/Projet_SUAPS/controler/controlerBooking.php?action=reservation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?>;
+		document.location = "/Projet_SUAPS/controler/controlerBooking.php?action=reservation&place="+ place +"&date=" + dateToCel + "&userid="+userId;
 		
 	}
 	else if (action == 2.2 || action == 2.3) 
@@ -177,7 +196,7 @@ $("#modal-validate").on("click", function() {
 		console.log(prenomInvite);
 		
 		
-		document.location = "/Projet_SUAPS/controler/controlerBooking.php?action=invitation&place="+ place +"&date=" + dateToCel + "&userid="+<?= unserialize($_SESSION['user'])->getId() ?> +"&userinviteemail="+emailInvite;
+		document.location = "/Projet_SUAPS/controler/controlerBooking.php?action=invitation&place="+ place +"&date=" + dateToCel + "&userid="+ userId +"&userinviteemail="+emailInvite;
 		
 	}
 })

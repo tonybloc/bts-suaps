@@ -18,8 +18,8 @@ ob_start();
 ?>
 	
 <section class="container" id="connection">
-	<div class="test">
-		<h1>Connexion Suaps Golf</h1>
+	<div>
+		<h1 style="text-align:center">Connexion Suaps Golf</h1>
 		</br>
     	<form id="formConnection"class="form-horizontal" method="post" action="/Projet_SUAPS/controler/controlerLogin.php">            	
         	<div class="form-group">

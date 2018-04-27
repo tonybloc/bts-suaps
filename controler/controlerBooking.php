@@ -30,7 +30,6 @@ if(isset($_GET['action'])){
         default:
             break;        
     }
-    initSessionUsersCalendar();
     header("Location: /Projet_SUAPS/view/ViewBooking.php");
 }else{
     header("Location: /Projet_SUAPS/view/ViewBooking.php");
@@ -123,33 +122,52 @@ function actionAnnulationSelf(){
  * Annulation d'une réservation d'un autre utilisateur (fonction utlisé pour les "admin")
  */
 function actionAnnulationElse(){
-    if(isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userSelectedEmail']) &&
-        !empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userSelectedEmail'])){
+    if(isset($_GET['place']) && isset($_GET['date']) && isset($_GET['userSelectedEmail']) && isset($_GET['userid']) &&
+        !empty($_GET['place']) && !empty($_GET['date']) && !empty($_GET['userSelectedEmail']) && !empty($_GET['userid'])){
             
             $place = htmlspecialchars($_GET['place']);
             $date = htmlspecialchars($_GET['date']);
             $userSelectedEmail = htmlspecialchars($_GET['userSelectedEmail']);
+            $userid = htmlspecialchars($_GET['userid']);
             
             $d = date_parse_from_format("Y-m-d", $date);
-            
             $dateMonth = $d['month'];
             $dateYear = $d['year'];
             $dateDay = $d['day'];
             $nbJourJulien = cal_to_jd(CAL_GREGORIAN, $dateMonth, $dateDay, $dateYear);
             
-            
             $user = getUser($userSelectedEmail);            
-            annulerReservation($date, $user["ID_UTIL"], $place);
-            supNbParcours($user["ID_UTIL"]);
-            addAnnulation($user["ID_UTIL"]);
+            $idUserInvite = getIdInviteOfReservation($date, $user["ID_UTIL"], $place);
             
             // Réstitue un ticket weekend ou semaine en fonction du jour
             if(jddayofweek($nbJourJulien) == 0 || jddayofweek($nbJourJulien) == 6)
             {
-                addTicketWeekend($user["ID_UTIL"], 1);
+                if($idUserInvite != NULL){
+                    annulerReservation($date, $user["ID_UTIL"], $place);
+                    supNbParcours($user["ID_UTIL"]);
+                    addAnnulation($idUserInvite);
+                    addTicketWeekend($idUserInvite, 1);
+                }
+                else{
+                    annulerReservation($date, $user["ID_UTIL"], $place);
+                    supNbParcours($user["ID_UTIL"]);
+                    addAnnulation($user["ID_UTIL"]);
+                    addTicketWeekend($idUserInvite, 1);
+                }
             }
             else{
-                addTicketSemaine($user["ID_UTIL"], 1);
+                if($idUserInvite != NULL){
+                    annulerReservation($date, $user["ID_UTIL"], $place);
+                    supNbParcours($user["ID_UTIL"]);
+                    addAnnulation($idUserInvite);
+                    addTicketSemaine($idUserInvite, 1);
+                }
+                else{
+                    annulerReservation($date, $user["ID_UTIL"], $place);
+                    supNbParcours($user["ID_UTIL"]);
+                    addAnnulation($user["ID_UTIL"]); 
+                    addTicketSemaine($idUserInvite, 1);
+                }
             }
     }
 }
@@ -184,7 +202,7 @@ function actionInvitation(){
                     $_SESSION['ERREUR_TICKETS_MANQUANTS'] = "Votre nombre de tickets 'semaine' est insuffisant (Veuillez contacter un administrateur pour créditer votre compte)";
                 }else{
                     $_SESSION['ERREUR_TICKETS_MANQUANTS']="";
-                    reservation($userInvite['ID_UTIL'], $place, $date);
+                    reservation($userInvite['ID_UTIL'], $place, $date, $userid);
                     supTicketWeekend($userid);
                 }
             }
@@ -193,7 +211,7 @@ function actionInvitation(){
                     $_SESSION['ERREUR_TICKETS_MANQUANTS'] = "Votre nombre de tickets 'semaine' est insuffisant (Veuillez contacter un administrateur pour créditer votre compte)";
                 }else{
                     $_SESSION['ERREUR_TICKETS_MANQUANTS']="";
-                    reservation($userInvite['ID_UTIL'], $place, $date);
+                    reservation($userInvite['ID_UTIL'], $place, $date, $userid);
                     supTicketSemaine($userid);
                 }                
             }

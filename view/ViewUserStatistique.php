@@ -43,6 +43,13 @@ if(!isset($_SESSION))
     			</td>
     		</tr>
     		<tr>
+    			<td class="title_stat" >Invitation</td>
+    			<td class="separator_stat"> : </td>
+    			<td class="value_stat">
+    			<?= getNbInvitation(unserialize($_SESSION['user'])->getId()) ?>
+    			</td>
+    		</tr>
+    		<tr>
     			<td class="title_stat">Parcours</td>
     			<td class="separator_stat"> : </td>
     			<td class="value_stat">
@@ -57,17 +64,10 @@ if(!isset($_SESSION))
     			</td>
     		</tr>
     		<tr>
-    			<td class="title_stat" >Annulation</td>
+    			<td class="title_stat" >Annulation (<?= date("Y")?>)</td>
     			<td class="separator_stat"> : </td>
     			<td class="value_stat">
-    			<?= (unserialize($_SESSION['user'])->getNbTicketTotal() != null) ? unserialize($_SESSION['user'])->getNbTicketTotal() : "0" ?>
-    			</td>
-    		</tr>
-    		<tr>
-    			<td class="title_stat" >Invitation</td>
-    			<td class="separator_stat"> : </td>
-    			<td class="value_stat">
-    			<?= "0" // à faire ?>
+    			<?= getCountAllAnnulation() ?>
     			</td>
     		</tr>
     	</table>

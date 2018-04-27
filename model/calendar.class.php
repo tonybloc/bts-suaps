@@ -212,6 +212,13 @@ class Calendar
     {
         $this->month = $month;
     }
+    /**
+     * 
+     * @return unknown
+     */
+    public function getDay(){
+        return $this->day;
+    }
 
     /**
      * @param number $year

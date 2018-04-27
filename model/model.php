@@ -43,6 +43,30 @@ function getUser($email)
        return null;
    }
 }
+
+/**
+ * Retourne la liste des utilisateurs
+ * @return array
+ */
+function getAllUser(){
+    global $myConnection;
+    
+    $myConnection->query("SELECT ID_UTIL, LASTNAME_UTIL, FIRSTNAME_UTIL FROM utilisateur");
+    $users = $myConnection->resultset();
+    
+    $arrayOfUsers = array();
+    foreach($users as $row => $link)
+    {
+        $tempoArray = array(
+            "id" => $link["ID_UTIL"],
+            "prenom" => $link['LASTNAME_UTIL'],
+            "nom" => $link['FIRSTNAME_UTIL']
+        );
+        array_push($arrayOfUsers,$tempoArray);
+    }
+    return $arrayOfUsers;
+    
+}
 /**
  * retourn le nombre de reservation total de l'année courrente
  * @return unknown
@@ -56,6 +80,20 @@ function getCountAllReservation()
     return $nbReservTot['NB'];
     
 }
+/**
+ * retourn le nombre de reservation total de l'année courrente
+ * @return unknown
+ */
+function getCountAllAnnulation()
+{
+    global $myConnection;
+    $myConnection->query("SELECT SUM(NB_ANNULATION_TOTAL) AS NB FROM utilisateur u, reserver r WHERE YEAR(r.DATE_RESERVATION) = YEAR(NOW())");
+    
+    $nbReservTot = $myConnection->single();
+    return $nbReservTot['NB'];
+    
+}
+
 /**
  * retourn le nombre de parcours realisé par un utilisateur
  * @param unknown $idUser
@@ -72,6 +110,18 @@ function getnbParcours($idUser)
     return $nbParcours['NB_TICKETS_TOTAL_UTIL'];
 }
 
+function getNbInvitation($idUser)
+{
+    global $myConnection;
+    $myConnection->query("
+        SELECT count(ID_INVITE) AS NB_INVITATION
+        FROM reserver
+        WHERE ID_INVITE IS NOT NULL
+        AND ID_INVITE = :idUser");
+    $myConnection->bind(":idUser",$idUser, PDO::PARAM_INT);
+    $nbInvitation = $myConnection->single();
+    return $nbInvitation['NB_INVITATION'];
+}
 
 
 /*
@@ -109,7 +159,7 @@ function addTicketWeekend($userId, $nbTickets)
     
     $myConnection->execute();
     
-    unserialize($_SESSION['user'])->delTicketWeek( unserialize($_SESSION['user'])->getNbTicketWeek() + nbTickets );
+    //unserialize($_SESSION['user'])->delTicketWeek( unserialize($_SESSION['user'])->getNbTicketWeek() + $nbTickets );
 }
 
 /**
@@ -125,7 +175,7 @@ function supTicketWeekend($userId)
     
     $myConnection->execute();
     
-    unserialize($_SESSION['user'])->delTicketWeek( unserialize($_SESSION['user'])->getNbTicketWeek() - 1 );
+    //unserialize($_SESSION['user'])->delTicketWeek( unserialize($_SESSION['user'])->getNbTicketWeek() - 1 );
 }
 
 /**
@@ -182,7 +232,7 @@ function getNbAnnulation($userId)
     $myConnection->query("SELECT NB_ANNULATION_TOTAL FROM utilisateur WHERE ID_UTIL = :idUtil");
     $myConnection->bind(":idUtil",$userId, PDO::PARAM_INT);
     $nbAnnulation = $myConnection->single();
-    return $nbAnnulation['NB_TICKETS_TOTAL_UTIL'];
+    return $nbAnnulation['NB_ANNULATION_TOTAL'];
 }
 
 /*décrement le nombre d'annulation d'un utilisateur*/
@@ -266,7 +316,20 @@ function initScriptJS()
     echo "console.log(arrayUser);";
     echo '</script>';
 }
-
+function getIdInviteOfReservation($date, $userId, $place){
+    global $myConnection;
+    
+    $myConnection->query("
+        SELECT ID_INVITE FROM reserver
+        WHERE ID_UTIL = :idUser
+        AND ID_PLACE = :idPlace
+        AND DATE_RESERVATION = :date");
+    $myConnection->bind(':date', $date, PDO::PARAM_STR);
+    $myConnection->bind(':idUser', $userId, PDO::PARAM_INT);
+    $myConnection->bind(':idPlace', $place, PDO::PARAM_INT);
+    $idInvite = $myConnection->single();
+    return $idInvite["ID_INVITE"];
+}
 /**
  * reservation d'une place 
  * @param unknown $userId
@@ -274,13 +337,14 @@ function initScriptJS()
  * @param unknown $date (format : YYYY-MM-dd)
  * @param unknown $etat (0: vide,  1: reserver, 2:inviter, 3:annuler) 
  */
-function reservation($userId, $idPlace, $date, $etat=null)
+function reservation($userId, $idPlace, $date, $idInvite=null, $etat=null)
 {
     global $myConnection;
     
-    $myConnection->query("INSERT INTO reserver(ID_UTIL, ID_PLACE, DATE_RESERVATION, ETAT) VALUES (:idUser, :idPlace, '".$date."', :etat)");
+    $myConnection->query("INSERT INTO reserver(ID_UTIL, ID_PLACE, DATE_RESERVATION, ID_INVITE, ETAT) VALUES (:idUser, :idPlace, '".$date."', :idInvite, :etat)");
     $myConnection->bind(':idUser', $userId, PDO::PARAM_INT);
     $myConnection->bind(':idPlace', $idPlace, PDO::PARAM_INT);
+    $myConnection->bind(':idInvite', $idInvite, PDO::PARAM_INT);
     $myConnection->bind(':etat', $etat, PDO::PARAM_INT);
     $myConnection->execute(); 
 }
@@ -359,33 +423,35 @@ function getNumberOfBooking($idUser){
         INNER JOIN reserver r
         ON r.ID_UTIL = u.ID_UTIL
         WHERE DATE_RESERVATION >= CURDATE()
-        AND DATE_RESERVATION <= DATE_ADD(CURDATE(), INTERVAL 15 DAY) AND u.ID_UTIL = :idUser");
+        AND u.ID_UTIL = :idUser");
     $myConnection->bind(":idUser", $idUser, PDO::PARAM_INT);
     $numberOfBooking = $myConnection->single();
     return $numberOfBooking['NUMBER_RESERV'];
     
 }
-function getDatasToFillCalendar()
+function getDatasToFillCalendar($stringDate)
 {
     global $myConnection;
     $myConnection->query(
-        "SELECT LASTNAME_UTIL,
+        'SELECT LASTNAME_UTIL,
         FIRSTNAME_UTIL,
         ID_PLACE,
         DATE_RESERVATION AS DATE_RESERV,
-        EMAIL 
+        EMAIL,
+        ID_INVITE 
         FROM utilisateur u 
         INNER JOIN reserver r 
         ON r.ID_UTIL = u.ID_UTIL 
-        WHERE DATE_RESERVATION >= CURDATE() 
-        AND DATE_RESERVATION <= DATE_ADD(CURDATE(), INTERVAL 15 DAY)");
+        WHERE DATE_RESERVATION >= DATE_FORMAT( :date, "%Y-%m-%d")
+        AND DATE_RESERVATION <= DATE_ADD(DATE_FORMAT( :date, "%Y-%m-%d"), INTERVAL 15 DAY)');
+    $myConnection->bind(":date", $stringDate, PDO::PARAM_STR);
     if ($myConnection!=null)
         return $myConnection->resultset();
 }
 
-function initSessionUsersCalendar()
+function initSessionUsersCalendar($stringDate)
 {
-    $bufferUsersToFill = getDatasToFillCalendar();
+    $bufferUsersToFill = getDatasToFillCalendar($stringDate);
     if  ($bufferUsersToFill != "];")
     {
         $bufferUsersTab = 0;
@@ -393,7 +459,7 @@ function initSessionUsersCalendar()
         foreach($bufferUsersToFill as $row => $link)
         {
             $bufferUsersTab++;
-            $_SESSION['UsersCalendar'].="{'Lastname':'".$link['LASTNAME_UTIL']."','name':'".$link['FIRSTNAME_UTIL']."','place':'".$link['ID_PLACE']."','date':'".$link['DATE_RESERV']."','email':'".$link['EMAIL']."'},";
+            $_SESSION['UsersCalendar'].="{'Lastname':'".$link['LASTNAME_UTIL']."','name':'".$link['FIRSTNAME_UTIL']."','place':'".$link['ID_PLACE']."','date':'".$link['DATE_RESERV']."','email':'".$link['EMAIL']."','idInvite':'".$link['ID_INVITE']."'},";
         }
         $_SESSION['UsersCalendar'] = "[".substr($_SESSION['UsersCalendar'],0,strlen($_SESSION['UsersCalendar'])-1)."]";
         

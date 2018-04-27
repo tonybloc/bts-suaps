@@ -22,9 +22,8 @@ if(isset($_SESSION['user'])){
             	<div class="panel_content">
                 	<ul class="nav nav-pills nav-stacked">
                 		<li><a href="/Projet_SUAPS/view/ViewGlobalStatistique.php">Statisitique Globals</a></li>
-                		<li><a href="#">Cotisation des Membres</a></li>
                 		<li><a href="/Projet_SUAPS/view/ViewInscription.php">Inscription des utilisateurs</a></li>
-                		<li><a href="#">Tickets</a></li>
+                		<li><a href="/Projet_SUAPS/view/ViewCotisationAdmin.php?mode=admin">Cotisation des membres</a></li>
                 	</ul>
                 </div>
             </div>

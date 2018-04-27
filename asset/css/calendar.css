@@ -21,7 +21,7 @@
 	background-color:white;
 	
 	width : 250px;
-	height: 50px;
+	height: 60px;
 	
 }
 .cel_month{
@@ -51,6 +51,11 @@
 	margin:0px;
 }
 .cel_value_email{
+	color:gray;
+	font-size:10px;	
+	margin:0px;
+}
+.cel_value_invite{
 	color:gray;
 	font-size:10px;	
 	margin:0px;
